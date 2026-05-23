@@ -4,27 +4,169 @@
   <meta charset="UTF-8">
   <title>WirallesTEC – Presentación</title>
   <style>
-    body { font-family: Inter, Arial, sans-serif; background: #1A1A2E; color: #F0F0F0;
-            display: flex; flex-direction: column; align-items: center; padding: 40px; }
-    h1   { color: #A8DADC; margin-bottom: 6px; }
-    p    { color: #9E9E9E; margin-bottom: 30px; }
-    ul   { list-style: none; padding: 0; width: 500px; }
-    li   { margin: 12px 0; }
-    a    { display: block; padding: 14px 20px; background: #16213E;
-            border: 1px solid #457B9D; border-radius: 8px; color: #A8DADC;
-            text-decoration: none; font-size: 15px; transition: background 0.2s; }
-    a:hover { background: #457B9D; color: #F0F0F0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background: #1A1A2E; color: #F0F0F0;
+      display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+    }
+
+    /* ── Top bar ── */
+    .bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; background: #16213E;
+      border-bottom: 1px solid #457B9D; height: 48px; flex-shrink: 0;
+    }
+    .bar-label { color: #9E9E9E; font-size: 12px; }
+    .bar-controls { display: flex; align-items: center; gap: 10px; }
+    .btn {
+      background: #1A1A2E; border: 1px solid #457B9D;
+      color: #A8DADC; font-family: inherit; font-size: 13px;
+      padding: 5px 16px; border-radius: 6px; cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .btn:hover:not(:disabled) { background: #457B9D; color: #F0F0F0; }
+    .btn:disabled { opacity: 0.25; cursor: default; }
+    .counter { color: #9E9E9E; font-size: 13px; min-width: 52px; text-align: center; }
+    .counter em { color: #A8DADC; font-style: normal; }
+
+    /* ── Dots ── */
+    .dots { display: flex; gap: 6px; align-items: center; }
+    .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #16213E; border: 1px solid #457B9D; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .dot.active { background: #A8DADC; border-color: #A8DADC; }
+    .dot:hover:not(.active) { background: #457B9D; }
+
+    /* ── Content ── */
+    .stage { flex: 1; position: relative; overflow: hidden; }
+
+    /* ── Cover (slide 0) ── */
+    #cover {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: #1A1A2E; padding: 40px 20px;
+    }
+    #cover.hidden { display: none; }
+    .cover-title { color: #A8DADC; font-size: 26px; margin-bottom: 8px; text-align: center; }
+    .cover-sub { color: #9E9E9E; font-size: 14px; margin-bottom: 44px; }
+    .slide-list { list-style: none; width: 100%; max-width: 520px; }
+    .slide-list li { margin: 10px 0; }
+    .slide-btn {
+      display: block; width: 100%; padding: 13px 20px;
+      background: #16213E; border: 1px solid #457B9D; border-radius: 8px;
+      color: #A8DADC; font-family: inherit; font-size: 14px;
+      cursor: pointer; text-align: left; transition: background 0.15s, color 0.15s;
+    }
+    .slide-btn:hover { background: #457B9D; color: #F0F0F0; }
+
+    /* ── Iframe ── */
+    #frame {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+    }
+    #frame.hidden { display: none; }
   </style>
 </head>
 <body>
-  <h1>WirallesTEC – Visualización para la Toma de Decisiones</h1>
-  <p>Taller Final · Especialización en Analítica y Ciencia de Datos · Mayo 2026</p>
-  <ul><li><a href="slide1_mapa.html" target="_blank">Slide 1 – Mapa: La alarma está encendida</a></li>
-<li><a href="slide2_barras.html" target="_blank">Slide 2 – Ventas por sucursal 2022–2024</a></li>
-<li><a href="slide3_lineas.html" target="_blank">Slide 3 – Evolución mensual de ventas</a></li>
-<li><a href="slide4_scatter.html" target="_blank">Slide 4 – El debate: vendedores vs variedad</a></li>
-<li><a href="slide5_radiografia.html" target="_blank">Slide 5 – Radiografía de Bucaramanga</a></li>
-<li><a href="slide6_pereira_buca.html" target="_blank">Slide 6 – Pereira vs Bucaramanga</a></li>
-<li><a href="slide7_roadmap.html" target="_blank">Slide 7 – Propuesta de acción</a></li></ul>
+
+<div class="bar">
+  <span class="bar-label">WirallesTEC · Taller Final · Analítica y Ciencia de Datos · Mayo 2026</span>
+  <div class="bar-controls">
+    <button class="btn" id="btn-prev">← anterior</button>
+    <span class="counter"><em id="cur">0</em> / <span id="tot"></span></span>
+    <button class="btn" id="btn-next">siguiente →</button>
+  </div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<div class="stage">
+  <div id="cover">
+    <h1 class="cover-title">WirallesTEC – Visualización para la Toma de Decisiones</h1>
+    <p class="cover-sub">Taller Final · Especialización en Analítica y Ciencia de Datos · Mayo 2026</p>
+    <ul class="slide-list" id="slide-list"></ul>
+  </div>
+  <iframe id="frame" class="hidden" src="about:blank"></iframe>
+</div>
+
+<script>
+const slides = [
+  { label: "Portada",                                        file: null },
+  { label: "Slide 1 – Mapa: La alarma está encendida",       file: "slide1_mapa.html" },
+  { label: "Slide 2 – Ventas por sucursal 2022–2024",        file: "slide2_barras.html" },
+  { label: "Slide 3 – Evolución mensual de ventas",          file: "slide3_lineas.html" },
+  { label: "Slide 4 – El debate: vendedores vs variedad",    file: "slide4_scatter.html" },
+  { label: "Slide 5 – Radiografía de Bucaramanga",           file: "slide5_radiografia.html" },
+  { label: "Slide 6 – Pereira vs Bucaramanga",               file: "slide6_pereira_buca.html" },
+  { label: "Slide 7 – Propuesta de acción",                  file: "slide7_roadmap.html" },
+];
+
+let current = 0;
+
+const cover   = document.getElementById('cover');
+const frame   = document.getElementById('frame');
+const btnPrev = document.getElementById('btn-prev');
+const btnNext = document.getElementById('btn-next');
+const curEl   = document.getElementById('cur');
+const totEl   = document.getElementById('tot');
+const dotsEl  = document.getElementById('dots');
+const listEl  = document.getElementById('slide-list');
+
+totEl.textContent = slides.length - 1;
+
+// Build dots
+slides.forEach((s, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.title = s.label;
+  d.addEventListener('click', () => goTo(i));
+  dotsEl.appendChild(d);
+});
+
+// Build cover list (slides 1–N)
+slides.slice(1).forEach((s, i) => {
+  const li  = document.createElement('li');
+  const btn = document.createElement('button');
+  btn.className = 'slide-btn';
+  btn.textContent = s.label;
+  btn.addEventListener('click', () => goTo(i + 1));
+  li.appendChild(btn);
+  listEl.appendChild(li);
+});
+
+function goTo(idx) {
+  current = Math.max(0, Math.min(slides.length - 1, idx));
+  const s = slides[current];
+
+  if (s.file === null) {
+    cover.classList.remove('hidden');
+    frame.classList.add('hidden');
+    frame.src = 'about:blank';
+  } else {
+    cover.classList.add('hidden');
+    frame.classList.remove('hidden');
+    frame.src = s.file;
+  }
+
+  curEl.textContent  = current;
+  btnPrev.disabled   = current === 0;
+  btnNext.disabled   = current === slides.length - 1;
+
+  dotsEl.querySelectorAll('.dot').forEach((d, i) =>
+    d.classList.toggle('active', i === current)
+  );
+}
+
+btnPrev.addEventListener('click', () => goTo(current - 1));
+btnNext.addEventListener('click', () => goTo(current + 1));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  goTo(current + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    goTo(current - 1);
+});
+
+goTo(0);
+</script>
 </body>
 </html>

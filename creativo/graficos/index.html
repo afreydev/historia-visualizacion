@@ -9,42 +9,177 @@
     body {
       font-family: 'JetBrains Mono', 'Courier New', monospace;
       background: #0D0D0D; color: #F0F0F0;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 60px 20px; min-height: 100vh;
+      display: flex; flex-direction: column; height: 100vh; overflow: hidden;
     }
-    .tag { color: #4A4A6A; font-size: 12px; letter-spacing: 3px; margin-bottom: 10px; }
-    h1 { color: #00FF9F; font-size: 26px; margin-bottom: 6px; text-align: center; }
-    .sub { color: #4A4A6A; font-size: 13px; margin-bottom: 50px; }
-    .ecg { color: #E63946; font-size: 36px; margin-bottom: 16px; letter-spacing: -2px; }
-    ul { list-style: none; width: 100%; max-width: 580px; }
-    li { margin: 10px 0; }
-    a {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 20px; background: #141420;
-      border: 1px solid #1E1E2E; border-radius: 6px;
-      color: #F0F0F0; text-decoration: none; font-size: 13px;
-      transition: border-color 0.2s, background 0.2s;
+
+    /* ── Top bar ── */
+    .bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; background: #0D0D0D;
+      border-bottom: 1px solid #1E1E2E; height: 48px; flex-shrink: 0;
     }
-    a:hover { border-color: #00FF9F; background: #1A1A30; color: #00FF9F; }
+    .bar-label { color: #4A4A6A; font-size: 11px; letter-spacing: 2px; }
+    .bar-controls { display: flex; align-items: center; gap: 10px; }
+    .btn {
+      background: #141420; border: 1px solid #1E1E2E;
+      color: #F0F0F0; font-family: inherit; font-size: 12px;
+      padding: 5px 14px; border-radius: 4px; cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn:hover:not(:disabled) { border-color: #00FF9F; color: #00FF9F; }
+    .btn:disabled { opacity: 0.25; cursor: default; }
+    .counter { color: #4A4A6A; font-size: 12px; min-width: 52px; text-align: center; }
+    .counter em { color: #00FF9F; font-style: normal; }
+
+    /* ── Dots ── */
+    .dots { display: flex; gap: 5px; align-items: center; }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #1E1E2E; border: 1px solid #2E2E4E; cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .dot.active { background: #00FF9F; border-color: #00FF9F; }
+    .dot:hover:not(.active) { background: #4A4A6A; }
+
+    /* ── Content ── */
+    .stage { flex: 1; position: relative; overflow: hidden; }
+
+    /* ── Cover (slide 0) ── */
+    #cover {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: #0D0D0D; padding: 40px 20px;
+    }
+    #cover.hidden { display: none; }
+    .cover-tag { color: #4A4A6A; font-size: 11px; letter-spacing: 3px; margin-bottom: 18px; }
+    .cover-ecg { color: #E63946; font-size: 40px; letter-spacing: -2px; margin-bottom: 20px; }
+    .cover-title { color: #00FF9F; font-size: 26px; margin-bottom: 8px; text-align: center; }
+    .cover-sub { color: #4A4A6A; font-size: 12px; margin-bottom: 44px; }
+    .slide-list { list-style: none; width: 100%; max-width: 560px; }
+    .slide-list li { margin: 7px 0; }
+    .slide-btn {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      padding: 11px 16px; background: #141420;
+      border: 1px solid #1E1E2E; border-radius: 5px;
+      color: #F0F0F0; font-family: inherit; font-size: 12px;
+      cursor: pointer; text-align: left; transition: all 0.15s;
+    }
+    .slide-btn:hover { border-color: #00FF9F; background: #1A1A30; color: #00FF9F; }
     .num {
       background: #1E1E2E; color: #4A4A6A;
-      padding: 3px 8px; border-radius: 4px;
-      font-size: 11px; min-width: 28px; text-align: center;
+      padding: 2px 7px; border-radius: 3px;
+      font-size: 11px; min-width: 26px; text-align: center; flex-shrink: 0;
     }
+
+    /* ── Iframe ── */
+    #frame {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: none;
+    }
+    #frame.hidden { display: none; }
   </style>
 </head>
 <body>
-  <div class="tag">TALLER FINAL · VISUALIZACIÓN · MAYO 2026</div>
-  <div class="ecg">_/&#8254;\_/&#8254;\____</div>
-  <h1>La sucursal que perdió el pulso</h1>
-  <p class="sub">WirallesTEC · Diagnóstico forense de datos · 7 minutos</p>
-  <ul><li><a href="slide1_ecg.html" target="_blank"><span class="num">01</span>Slide 1 — ECG: La línea que se aplana</a></li>
-<li><a href="slide2_bump.html" target="_blank"><span class="num">02</span>Slide 2 — Bump chart: El ranking que cuenta la historia</a></li>
-<li><a href="slide3_timeline.html" target="_blank"><span class="num">03</span>Slide 3 — Timeline anotado: La escena del crimen</a></li>
-<li><a href="slide4a_waffle.html" target="_blank"><span class="num">04</span>Slide 4A — Waffle: El peso real de Bucaramanga</a></li>
-<li><a href="slide4b_quadrant.html" target="_blank"><span class="num">05</span>Slide 4B — Quadrant: El veredicto sobre Rafael y Ana</a></li>
-<li><a href="slide5_radar.html" target="_blank"><span class="num">06</span>Slide 5 — Radar: Radiografía de 5 dimensiones</a></li>
-<li><a href="slide6_dumbbell.html" target="_blank"><span class="num">07</span>Slide 6 — Dumbbell: Pereira vs Bucaramanga</a></li>
-<li><a href="slide7_matrix.html" target="_blank"><span class="num">08</span>Slide 7 — Matriz + Proyección: La decisión es hoy</a></li></ul>
+
+<div class="bar">
+  <span class="bar-label">TALLER FINAL · VISUALIZACIÓN · MAYO 2026</span>
+  <div class="bar-controls">
+    <button class="btn" id="btn-prev">← anterior</button>
+    <span class="counter"><em id="cur">0</em> / <span id="tot"></span></span>
+    <button class="btn" id="btn-next">siguiente →</button>
+  </div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<div class="stage">
+  <div id="cover">
+    <div class="cover-tag">TALLER FINAL · VISUALIZACIÓN · MAYO 2026</div>
+    <div class="cover-ecg">_/&#8254;\_/&#8254;\____</div>
+    <h1 class="cover-title">La sucursal que perdió el pulso</h1>
+    <p class="cover-sub">WirallesTEC · Diagnóstico forense de datos · 7 minutos</p>
+    <ul class="slide-list" id="slide-list"></ul>
+  </div>
+  <iframe id="frame" class="hidden" src="about:blank"></iframe>
+</div>
+
+<script>
+const slides = [
+  { label: "Portada",                                          file: null },
+  { label: "Slide 1 — ECG: La línea que se aplana",           file: "slide1_ecg.html" },
+  { label: "Slide 2 — Bump chart: El ranking",                file: "slide2_bump.html" },
+  { label: "Slide 3 — Timeline: La escena del crimen",        file: "slide3_timeline.html" },
+  { label: "Slide 4A — Waffle: El peso real de Bucaramanga",  file: "slide4a_waffle.html" },
+  { label: "Slide 4B — Quadrant: Rafael y Ana",               file: "slide4b_quadrant.html" },
+  { label: "Slide 5 — Radar: Radiografía de 5 dimensiones",   file: "slide5_radar.html" },
+  { label: "Slide 6 — Dumbbell: Pereira vs Bucaramanga",      file: "slide6_dumbbell.html" },
+  { label: "Slide 7 — Matriz + Proyección: La decisión",      file: "slide7_matrix.html" },
+];
+
+let current = 0;
+
+const cover   = document.getElementById('cover');
+const frame   = document.getElementById('frame');
+const btnPrev = document.getElementById('btn-prev');
+const btnNext = document.getElementById('btn-next');
+const curEl   = document.getElementById('cur');
+const totEl   = document.getElementById('tot');
+const dotsEl  = document.getElementById('dots');
+const listEl  = document.getElementById('slide-list');
+
+totEl.textContent = slides.length - 1;
+
+// Build dots
+slides.forEach((s, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.title = s.label;
+  d.addEventListener('click', () => goTo(i));
+  dotsEl.appendChild(d);
+});
+
+// Build cover list (slides 1–N)
+slides.slice(1).forEach((s, i) => {
+  const li  = document.createElement('li');
+  const btn = document.createElement('button');
+  btn.className = 'slide-btn';
+  const numStr = String(i + 1).padStart(2, '0');
+  btn.innerHTML = `<span class="num">${numStr}</span>${s.label.replace(/^Slide \S+ — /, '')}`;
+  btn.addEventListener('click', () => goTo(i + 1));
+  li.appendChild(btn);
+  listEl.appendChild(li);
+});
+
+function goTo(idx) {
+  current = Math.max(0, Math.min(slides.length - 1, idx));
+  const s = slides[current];
+
+  if (s.file === null) {
+    cover.classList.remove('hidden');
+    frame.classList.add('hidden');
+    frame.src = 'about:blank';
+  } else {
+    cover.classList.add('hidden');
+    frame.classList.remove('hidden');
+    frame.src = s.file;
+  }
+
+  curEl.textContent       = current;
+  btnPrev.disabled        = current === 0;
+  btnNext.disabled        = current === slides.length - 1;
+
+  dotsEl.querySelectorAll('.dot').forEach((d, i) =>
+    d.classList.toggle('active', i === current)
+  );
+}
+
+btnPrev.addEventListener('click', () => goTo(current - 1));
+btnNext.addEventListener('click', () => goTo(current + 1));
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  goTo(current + 1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    goTo(current - 1);
+});
+
+goTo(0);
+</script>
 </body>
 </html>
