@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_746a58e2c5d9100a1a9d25614973b7ed {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style='position:fixed; bottom:30px; left:30px; z-index:1000;
+                background:#1A1A2E; color:#F0F0F0; padding:12px 16px;
+                border-radius:8px; font-family:Arial; font-size:12px;
+                border:1px solid #457B9D;'>
+      <b>Ventas 2022–2024</b><br>
+      <span style='color:#E63946'>●</span> Sin ventas en 2024 (riesgo)<br>
+      <span style='color:#2DC653'>●</span> Mayor crecimiento<br>
+      <span style='color:#457B9D'>●</span> Otras sucursales<br>
+      <i>(tamaño = ventas totales)</i>
+    </div>
+    
+            <div class="folium-map" id="map_746a58e2c5d9100a1a9d25614973b7ed" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_746a58e2c5d9100a1a9d25614973b7ed = L.map(
+                "map_746a58e2c5d9100a1a9d25614973b7ed",
+                {
+                    center: [4.5, -74.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_36f0bd6e8f0726b04e0eb24ec08b4bf7 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_36f0bd6e8f0726b04e0eb24ec08b4bf7.addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+            var circle_marker_61694d62ea8e17cd183e224b4ab72d6e = L.circleMarker(
+                [4.6139, -74.0725],
+                {"bubblingMouseEvents": true, "color": "#457B9D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#457B9D", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50.0, "stroke": true, "weight": 3}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+        var popup_b567cf37c0d924e7977e381c19fffb3d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e1704c1a995fec6e796b3965648b37db = $(`<div id="html_e1704c1a995fec6e796b3965648b37db" style="width: 100.0%; height: 100.0%;">         <div style='font-family:Arial; background:#1A1A2E; color:#F0F0F0;                     padding:10px; border-radius:8px; min-width:180px;'>           <b style='font-size:14px;'>Bogotá D.C.</b><br>                      💰 Total 3 años: <b>$449,454 USD</b><br>           📅 2022: $122,097 | 2023: $187,081 | 2024: $140,277<br>           👥 Vendedores activos: <b>12</b> / 14<br>           📦 Productos distintos: <b>205</b>         </div></div>`)[0];
+                popup_b567cf37c0d924e7977e381c19fffb3d.setContent(html_e1704c1a995fec6e796b3965648b37db);
+            
+        
+
+        circle_marker_61694d62ea8e17cd183e224b4ab72d6e.bindPopup(popup_b567cf37c0d924e7977e381c19fffb3d)
+        ;
+
+        
+    
+    
+            circle_marker_61694d62ea8e17cd183e224b4ab72d6e.bindTooltip(
+                `<div>
+                     Bogotá D.C.: $449,454 USD
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_b3c8d0327a383a4b25a69fa764532696 = L.marker(
+                [4.8639, -74.0725],
+                {
+}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+            var div_icon_cfbeade88f07986280b1800cb279c7e3 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-family:Arial; font-size:11px; font-weight:bold; color:#F0F0F0;\u0027\u003eBogot\u00e1 D.C.\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_b3c8d0327a383a4b25a69fa764532696.setIcon(div_icon_cfbeade88f07986280b1800cb279c7e3);
+            
+    
+            var circle_marker_d24683f70e3a89716a254c0f4ad17e6b = L.circleMarker(
+                [6.2095, -75.565],
+                {"bubblingMouseEvents": true, "color": "#457B9D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#457B9D", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.140074185883392, "stroke": true, "weight": 3}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+        var popup_8cc01ee74db79df264328c9282a4e5dc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c34533e5c1fa958b2bba37841543b21b = $(`<div id="html_c34533e5c1fa958b2bba37841543b21b" style="width: 100.0%; height: 100.0%;">         <div style='font-family:Arial; background:#1A1A2E; color:#F0F0F0;                     padding:10px; border-radius:8px; min-width:180px;'>           <b style='font-size:14px;'>Medellín</b><br>                      💰 Total 3 años: <b>$179,073 USD</b><br>           📅 2022: $66,947 | 2023: $53,576 | 2024: $58,550<br>           👥 Vendedores activos: <b>5</b> / 7<br>           📦 Productos distintos: <b>172</b>         </div></div>`)[0];
+                popup_8cc01ee74db79df264328c9282a4e5dc.setContent(html_c34533e5c1fa958b2bba37841543b21b);
+            
+        
+
+        circle_marker_d24683f70e3a89716a254c0f4ad17e6b.bindPopup(popup_8cc01ee74db79df264328c9282a4e5dc)
+        ;
+
+        
+    
+    
+            circle_marker_d24683f70e3a89716a254c0f4ad17e6b.bindTooltip(
+                `<div>
+                     Medellín: $179,073 USD
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_24642b020488725c4d197dd7c2022cf4 = L.marker(
+                [6.4595, -75.565],
+                {
+}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+            var div_icon_1c2fb808c3f657c7422a8edf48288cb2 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-family:Arial; font-size:11px; font-weight:bold; color:#F0F0F0;\u0027\u003eMedell\u00edn\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_24642b020488725c4d197dd7c2022cf4.setIcon(div_icon_1c2fb808c3f657c7422a8edf48288cb2);
+            
+    
+            var circle_marker_bc8a4d567d9532ddb1ca3491227b14d3 = L.circleMarker(
+                [3.4653, -76.5229],
+                {"bubblingMouseEvents": true, "color": "#457B9D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#457B9D", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 28.359334872679607, "stroke": true, "weight": 3}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+        var popup_0a81ac331ad900cd58df8fdbc561af04 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_af6cb0e61b750d72693c35238cd31a17 = $(`<div id="html_af6cb0e61b750d72693c35238cd31a17" style="width: 100.0%; height: 100.0%;">         <div style='font-family:Arial; background:#1A1A2E; color:#F0F0F0;                     padding:10px; border-radius:8px; min-width:180px;'>           <b style='font-size:14px;'>Cali</b><br>                      💰 Total 3 años: <b>$193,494 USD</b><br>           📅 2022: $109,350 | 2023: $35,957 | 2024: $48,187<br>           👥 Vendedores activos: <b>6</b> / 7<br>           📦 Productos distintos: <b>175</b>         </div></div>`)[0];
+                popup_0a81ac331ad900cd58df8fdbc561af04.setContent(html_af6cb0e61b750d72693c35238cd31a17);
+            
+        
+
+        circle_marker_bc8a4d567d9532ddb1ca3491227b14d3.bindPopup(popup_0a81ac331ad900cd58df8fdbc561af04)
+        ;
+
+        
+    
+    
+            circle_marker_bc8a4d567d9532ddb1ca3491227b14d3.bindTooltip(
+                `<div>
+                     Cali: $193,494 USD
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_c96985f63d180542cc4cbd9248cd67bc = L.marker(
+                [3.7153, -76.5229],
+                {
+}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+            var div_icon_a6ad0708f43e04259f3620a99c16d098 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-family:Arial; font-size:11px; font-weight:bold; color:#F0F0F0;\u0027\u003eCali\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_c96985f63d180542cc4cbd9248cd67bc.setIcon(div_icon_a6ad0708f43e04259f3620a99c16d098);
+            
+    
+            var circle_marker_3b790804613a402b452abb8db8ff6279 = L.circleMarker(
+                [11.0091, -74.815],
+                {"bubblingMouseEvents": true, "color": "#457B9D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#457B9D", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.509056612555376, "stroke": true, "weight": 3}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+        var popup_5461840be876091e68eb4bbf6b3075a6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a39fa7df9df0758b3327097e007d3080 = $(`<div id="html_a39fa7df9df0758b3327097e007d3080" style="width: 100.0%; height: 100.0%;">         <div style='font-family:Arial; background:#1A1A2E; color:#F0F0F0;                     padding:10px; border-radius:8px; min-width:180px;'>           <b style='font-size:14px;'>Barranquilla</b><br>                      💰 Total 3 años: <b>$100,643 USD</b><br>           📅 2022: $39,710 | 2023: $32,306 | 2024: $28,627<br>           👥 Vendedores activos: <b>4</b> / 4<br>           📦 Productos distintos: <b>129</b>         </div></div>`)[0];
+                popup_5461840be876091e68eb4bbf6b3075a6.setContent(html_a39fa7df9df0758b3327097e007d3080);
+            
+        
+
+        circle_marker_3b790804613a402b452abb8db8ff6279.bindPopup(popup_5461840be876091e68eb4bbf6b3075a6)
+        ;
+
+        
+    
+    
+            circle_marker_3b790804613a402b452abb8db8ff6279.bindTooltip(
+                `<div>
+                     Barranquilla: $100,643 USD
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ae9d273b571db53bfe1f60d9cdf85cd6 = L.marker(
+                [11.2591, -74.815],
+                {
+}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+            var div_icon_7000a5fe577f411e5c9b89af8ef23d2b = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-family:Arial; font-size:11px; font-weight:bold; color:#F0F0F0;\u0027\u003eBarranquilla\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_ae9d273b571db53bfe1f60d9cdf85cd6.setIcon(div_icon_7000a5fe577f411e5c9b89af8ef23d2b);
+            
+    
+            var circle_marker_e65510cf212ecea79b5d075471f1f358 = L.circleMarker(
+                [1.2136, -77.2811],
+                {"bubblingMouseEvents": true, "color": "#457B9D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#457B9D", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.74213885920353, "stroke": true, "weight": 3}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+        var popup_f4d9f6c182c77c010b1c3ac2479206dc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8573db4641a24375d9c2f3e74e11443b = $(`<div id="html_8573db4641a24375d9c2f3e74e11443b" style="width: 100.0%; height: 100.0%;">         <div style='font-family:Arial; background:#1A1A2E; color:#F0F0F0;                     padding:10px; border-radius:8px; min-width:180px;'>           <b style='font-size:14px;'>Pasto</b><br>                      💰 Total 3 años: <b>$115,228 USD</b><br>           📅 2022: $23,775 | 2023: $24,296 | 2024: $67,156<br>           👥 Vendedores activos: <b>5</b> / 6<br>           📦 Productos distintos: <b>108</b>         </div></div>`)[0];
+                popup_f4d9f6c182c77c010b1c3ac2479206dc.setContent(html_8573db4641a24375d9c2f3e74e11443b);
+            
+        
+
+        circle_marker_e65510cf212ecea79b5d075471f1f358.bindPopup(popup_f4d9f6c182c77c010b1c3ac2479206dc)
+        ;
+
+        
+    
+    
+            circle_marker_e65510cf212ecea79b5d075471f1f358.bindTooltip(
+                `<div>
+                     Pasto: $115,228 USD
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_edf0107a45b7378b754abad7aa7ab8aa = L.marker(
+                [1.4636, -77.2811],
+                {
+}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+            var div_icon_15ae479c5e91adc327b9d1577f572392 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-family:Arial; font-size:11px; font-weight:bold; color:#F0F0F0;\u0027\u003ePasto\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_edf0107a45b7378b754abad7aa7ab8aa.setIcon(div_icon_15ae479c5e91adc327b9d1577f572392);
+            
+    
+            var circle_marker_2f3ae70658ceba2ef3f01d3794139a1c = L.circleMarker(
+                [10.4, -75.5512],
+                {"bubblingMouseEvents": true, "color": "#457B9D", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#457B9D", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.85413456613418, "stroke": true, "weight": 3}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+        var popup_0ac1c475138a9fca77fdd5a429cd5635 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8c812960c80fb58b51c716f5a901974e = $(`<div id="html_8c812960c80fb58b51c716f5a901974e" style="width: 100.0%; height: 100.0%;">         <div style='font-family:Arial; background:#1A1A2E; color:#F0F0F0;                     padding:10px; border-radius:8px; min-width:180px;'>           <b style='font-size:14px;'>Cartagena</b><br>                      💰 Total 3 años: <b>$69,241 USD</b><br>           📅 2022: $31,324 | 2023: $15,366 | 2024: $22,551<br>           👥 Vendedores activos: <b>7</b> / 8<br>           📦 Productos distintos: <b>95</b>         </div></div>`)[0];
+                popup_0ac1c475138a9fca77fdd5a429cd5635.setContent(html_8c812960c80fb58b51c716f5a901974e);
+            
+        
+
+        circle_marker_2f3ae70658ceba2ef3f01d3794139a1c.bindPopup(popup_0ac1c475138a9fca77fdd5a429cd5635)
+        ;
+
+        
+    
+    
+            circle_marker_2f3ae70658ceba2ef3f01d3794139a1c.bindTooltip(
+                `<div>
+                     Cartagena: $69,241 USD
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_7f6018bf6d0a1bd83ada4ffba24a7c19 = L.marker(
+                [10.65, -75.5512],
+                {
+}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+            var div_icon_4c950213e4b9f49e79fe762dc68adcbf = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-family:Arial; font-size:11px; font-weight:bold; color:#F0F0F0;\u0027\u003eCartagena\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_7f6018bf6d0a1bd83ada4ffba24a7c19.setIcon(div_icon_4c950213e4b9f49e79fe762dc68adcbf);
+            
+    
+            var circle_marker_43f6e7657828b44608af725ed4dee478 = L.circleMarker(
+                [7.1193, -73.132],
+                {"bubblingMouseEvents": true, "color": "#E63946", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#E63946", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.529800771922282, "stroke": true, "weight": 3}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+        var popup_21a4a449fbe43dbb82655ee999ed2895 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_58fb403b83a38007bc8bda70a173e06b = $(`<div id="html_58fb403b83a38007bc8bda70a173e06b" style="width: 100.0%; height: 100.0%;">         <div style='font-family:Arial; background:#1A1A2E; color:#F0F0F0;                     padding:10px; border-radius:8px; min-width:180px;'>           <b style='font-size:14px;'>Bucaramanga</b><br>           <span style="color:#E63946; font-weight:bold;">⚠ SIN VENTAS 2024</span><br>           💰 Total 3 años: <b>$29,922 USD</b><br>           📅 2022: $12,870 | 2023: $17,052 | 2024: $0<br>           👥 Vendedores activos: <b>2</b> / 7<br>           📦 Productos distintos: <b>72</b>         </div></div>`)[0];
+                popup_21a4a449fbe43dbb82655ee999ed2895.setContent(html_58fb403b83a38007bc8bda70a173e06b);
+            
+        
+
+        circle_marker_43f6e7657828b44608af725ed4dee478.bindPopup(popup_21a4a449fbe43dbb82655ee999ed2895)
+        ;
+
+        
+    
+    
+            circle_marker_43f6e7657828b44608af725ed4dee478.bindTooltip(
+                `<div>
+                     Bucaramanga: $29,922 USD
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_b94cb0e44529e80051d93c5c22a35bba = L.marker(
+                [7.3693, -73.132],
+                {
+}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+            var div_icon_89f45e155c5cc6b9756090b9c0a67285 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-family:Arial; font-size:11px; font-weight:bold; color:#E63946;\u0027\u003eBucaramanga\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_b94cb0e44529e80051d93c5c22a35bba.setIcon(div_icon_89f45e155c5cc6b9756090b9c0a67285);
+            
+    
+            var circle_marker_805463ca891bd2e2da6d23f00878520f = L.circleMarker(
+                [4.8143, -75.6946],
+                {"bubblingMouseEvents": true, "color": "#2DC653", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2DC653", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.01555418038083, "stroke": true, "weight": 3}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+        var popup_91db0214e9d5cf26a4553d8ceda6dee1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ab9da369e8d6369605b075936d8e2c24 = $(`<div id="html_ab9da369e8d6369605b075936d8e2c24" style="width: 100.0%; height: 100.0%;">         <div style='font-family:Arial; background:#1A1A2E; color:#F0F0F0;                     padding:10px; border-radius:8px; min-width:180px;'>           <b style='font-size:14px;'>Pereira</b><br>                      💰 Total 3 años: <b>$82,978 USD</b><br>           📅 2022: $4,770 | 2023: $25,617 | 2024: $52,591<br>           👥 Vendedores activos: <b>2</b> / 7<br>           📦 Productos distintos: <b>133</b>         </div></div>`)[0];
+                popup_91db0214e9d5cf26a4553d8ceda6dee1.setContent(html_ab9da369e8d6369605b075936d8e2c24);
+            
+        
+
+        circle_marker_805463ca891bd2e2da6d23f00878520f.bindPopup(popup_91db0214e9d5cf26a4553d8ceda6dee1)
+        ;
+
+        
+    
+    
+            circle_marker_805463ca891bd2e2da6d23f00878520f.bindTooltip(
+                `<div>
+                     Pereira: $82,978 USD
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_b7a017174e65e7fa95a679553366f804 = L.marker(
+                [5.0643, -75.6946],
+                {
+}
+            ).addTo(map_746a58e2c5d9100a1a9d25614973b7ed);
+        
+    
+            var div_icon_43129cba1163e1c49453a9e943aee922 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-family:Arial; font-size:11px; font-weight:bold; color:#F0F0F0;\u0027\u003ePereira\u003c/div\u003e",
+  "iconSize": [120, 20],
+  "className": "empty",
+});
+        
+    
+                marker_b7a017174e65e7fa95a679553366f804.setIcon(div_icon_43129cba1163e1c49453a9e943aee922);
+            
+</script>
+</html>
