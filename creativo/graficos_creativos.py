@@ -1,6 +1,6 @@
 """
 WirallesTEC – Gráficos creativos: "La sucursal que perdió el pulso"
-Estética: diagnóstico forense de datos · fondo negro · neon verde/rojo
+Estética: diagnóstico forense de datos · fondo blanco · colores claros
 """
 
 import pandas as pd
@@ -14,36 +14,59 @@ OUT  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "graficos")
 os.makedirs(OUT, exist_ok=True)
 
 # ── PALETA ───────────────────────────────────────────────────────────────────
-BG       = "#0D0D0D"
-BG_CARD  = "#141420"
-NEON     = "#00FF9F"   # verde neón — Pereira, positivo
-ROJO     = "#E63946"   # rojo — Bucaramanga, peligro
-AMBAR    = "#F4A261"   # ámbar — promedio, avisos
-GRIS     = "#4A4A6A"   # gris azulado — otras sucursales
-BLANCO   = "#F0F0F0"
-AZUL     = "#457B9D"   # Bogotá
+BG       = "#F8F9FA"   # gris muy claro — fondo principal
+BG_CARD  = "#FFFFFF"   # blanco puro — fondo de gráfico
+VERDE    = "#16A085"   # verde esmeralda — Pereira, actividad positiva
+ROJO     = "#C0392B"   # rojo oscuro — Bucaramanga, peligro
+AMBAR    = "#E67E22"   # naranja terracota — promedio, avisos
+GRIS     = "#95A5A6"   # gris medio — otras sucursales, referencia
+TEXTO    = "#1A1A2E"   # texto principal
+AZUL     = "#2980B9"   # Bogotá
 
 CIUDAD_COLORES = {
     "Bogotá D.C.":  AZUL,
-    "Medellín":     "#A8DADC",
-    "Cali":         "#7EC8E3",
-    "Barranquilla": "#5B8DB8",
-    "Pasto":        "#9DB4C0",
-    "Cartagena":    "#8FB3C9",
-    "Pereira":      NEON,
+    "Medellín":     "#8E44AD",
+    "Cali":         "#27AE60",
+    "Barranquilla": "#D35400",
+    "Pasto":        "#626567",
+    "Cartagena":    "#1A5276",
+    "Pereira":      VERDE,
     "Bucaramanga":  ROJO,
 }
 
 def base_layout(fig, titulo=""):
     fig.update_layout(
         paper_bgcolor=BG, plot_bgcolor=BG_CARD,
-        font=dict(family="'JetBrains Mono', 'Courier New', monospace", color=BLANCO, size=13),
-        title=dict(text=titulo, font=dict(size=19, color=BLANCO), x=0.05, y=0.97),
+        font=dict(family="'JetBrains Mono', 'Courier New', monospace", color=TEXTO, size=13),
+        title=dict(text=titulo, font=dict(size=19, color=TEXTO), x=0.05, y=0.97),
         margin=dict(l=60, r=50, t=70, b=60),
     )
-    fig.update_xaxes(gridcolor="#1E1E2E", zerolinecolor="#1E1E2E", tickfont=dict(color=GRIS))
-    fig.update_yaxes(gridcolor="#1E1E2E", zerolinecolor="#1E1E2E", tickfont=dict(color=GRIS))
+    fig.update_xaxes(gridcolor="#E8ECEF", zerolinecolor="#E8ECEF", tickfont=dict(color=GRIS))
+    fig.update_yaxes(gridcolor="#E8ECEF", zerolinecolor="#E8ECEF", tickfont=dict(color=GRIS))
     return fig
+
+
+def save_slide(fig, path):
+    """Guarda un slide como HTML centrado con max-width."""
+    chart_html = fig.to_html(full_html=False, include_plotlyjs=True)
+    full = f"""<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {{ margin: 0; padding: 0; background: {BG}; }}
+    .wrapper {{ max-width: 1100px; margin: 0 auto; padding: 20px 24px; }}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    {chart_html}
+  </div>
+</body>
+</html>"""
+    with open(path, "w") as f:
+        f.write(full)
 
 
 # ── CARGA DE DATOS ───────────────────────────────────────────────────────────
@@ -70,23 +93,21 @@ suc, vend, tk = cargar()
 # SLIDE 1 – ECG: la línea que se aplana
 # ═══════════════════════════════════════════════════════════════════════════════
 def slide1_ecg():
-    # Ventas mensuales Bucaramanga con todos los meses (0 donde no hubo ventas)
     todos = pd.DataFrame({"mes": pd.date_range("2022-01", "2024-12", freq="MS")})
     buca  = tk[tk["Sucursal ID"] == 7].groupby("mes")["Precio Total (USD)"].sum().reset_index()
     data  = todos.merge(buca, on="mes", how="left").fillna(0)
-    data["Precio Total (USD)"] /= 1000  # en miles
+    data["Precio Total (USD)"] /= 1000
 
     fig = go.Figure()
 
-    # Área de fondo bajo la curva — verde cuando hay actividad, rojo en flatline
     activo   = data[data["mes"] < "2024-01-01"]
     flatline = data[data["mes"] >= "2024-01-01"]
 
     fig.add_trace(go.Scatter(
         x=activo["mes"], y=activo["Precio Total (USD)"],
         mode="lines", fill="tozeroy",
-        line=dict(color=NEON, width=2.5),
-        fillcolor="rgba(0,255,159,0.10)",
+        line=dict(color=VERDE, width=2.5),
+        fillcolor="rgba(22,160,133,0.12)",
         name="Actividad",
         hovertemplate="%{x|%b %Y}: $%{y:.1f}k USD<extra></extra>",
     ))
@@ -94,18 +115,16 @@ def slide1_ecg():
         x=flatline["mes"], y=flatline["Precio Total (USD)"],
         mode="lines", fill="tozeroy",
         line=dict(color=ROJO, width=3),
-        fillcolor="rgba(230,57,70,0.08)",
+        fillcolor="rgba(192,57,43,0.08)",
         name="Flatline 2024",
         hovertemplate="%{x|%b %Y}: $%{y:.1f}k USD<extra></extra>",
     ))
 
-    # Línea vertical: inicio 2024
     fig.add_vline(
         x=pd.Timestamp("2024-01-01").timestamp() * 1000,
         line=dict(dash="dash", color=ROJO, width=1.5),
     )
 
-    # Anotaciones clave
     fig.add_annotation(
         x="2024-06-01", y=0.5,
         text="FLATLINE<br>Enero 2024 →",
@@ -119,13 +138,12 @@ def slide1_ecg():
         showarrow=True, arrowcolor=AMBAR, arrowhead=2, ax=0, ay=-35,
     )
 
-    # KPI en esquina superior derecha
     fig.add_annotation(
         x=0.97, y=0.95, xref="paper", yref="paper",
-        text="<b>Ventas 2024</b><br><span style='font-size:24px; color:#E63946'>$0 USD</span>",
-        font=dict(color=BLANCO, size=13),
+        text=f"<b>Ventas 2024</b><br><span style='font-size:24px; color:{ROJO}'>$0 USD</span>",
+        font=dict(color=TEXTO, size=13),
         showarrow=False, align="right",
-        bgcolor="rgba(230,57,70,0.15)", bordercolor=ROJO, borderwidth=1, borderpad=8,
+        bgcolor="rgba(192,57,43,0.08)", bordercolor=ROJO, borderwidth=1, borderpad=8,
     )
 
     fig.update_layout(
@@ -134,7 +152,7 @@ def slide1_ecg():
         showlegend=False, height=420,
     )
     base_layout(fig, "Bucaramanga · Actividad comercial 2022–2024")
-    fig.write_html(f"{OUT}/slide1_ecg.html")
+    save_slide(fig, f"{OUT}/slide1_ecg.html")
     print("✓ slide1_ecg.html")
 
 
@@ -159,9 +177,7 @@ def slide2_bump():
     for ciudad, ranks in rankings.items():
         color = CIUDAD_COLORES.get(ciudad, GRIS)
         width = 3.5 if ciudad in ("Bucaramanga", "Pereira") else 1.5
-        dash  = "solid"
 
-        # Trazar la línea solo entre puntos válidos
         x_valid = [a for a, r in zip(anios, ranks) if r is not None]
         y_valid = [r for r in ranks if r is not None]
 
@@ -169,17 +185,16 @@ def slide2_bump():
             x=x_valid, y=y_valid,
             mode="lines+markers+text",
             name=ciudad,
-            line=dict(color=color, width=width, dash=dash),
+            line=dict(color=color, width=width),
             marker=dict(size=12 if ciudad in ("Bucaramanga","Pereira") else 8,
                         color=color,
-                        line=dict(width=2, color=BG)),
+                        line=dict(width=2, color="#FFFFFF")),
             text=["" if i < len(x_valid)-1 else ciudad for i in range(len(x_valid))],
             textposition="middle right",
             textfont=dict(color=color, size=12 if ciudad in ("Bucaramanga","Pereira") else 10),
             hovertemplate=f"<b>{ciudad}</b><br>%{{x}}: Puesto %{{y}}<extra></extra>",
         ))
 
-        # Símbolo ⊘ para Bucaramanga en 2024
         if ciudad == "Bucaramanga":
             fig.add_annotation(
                 x=2024, y=8.3,
@@ -194,7 +209,6 @@ def slide2_bump():
                 showarrow=False,
             )
 
-    # Etiquetas del lado izquierdo
     for ciudad, ranks in rankings.items():
         color = CIUDAD_COLORES.get(ciudad, GRIS)
         if ranks[0] is not None:
@@ -214,7 +228,7 @@ def slide2_bump():
         showlegend=False, height=480,
     )
     base_layout(fig, "Ranking de Sucursales por Ventas · 2022 → 2024")
-    fig.write_html(f"{OUT}/slide2_bump.html")
+    save_slide(fig, f"{OUT}/slide2_bump.html")
     print("✓ slide2_bump.html")
 
 
@@ -236,50 +250,45 @@ def slide3_timeline():
 
     fig = go.Figure()
 
-    # Área de ventas
     fig.add_trace(go.Scatter(
         x=data["mes"], y=data["ventas_k"],
         mode="lines", fill="tozeroy",
-        line=dict(color=NEON, width=2),
-        fillcolor="rgba(0,255,159,0.12)",
+        line=dict(color=VERDE, width=2),
+        fillcolor="rgba(22,160,133,0.15)",
         name="Ventas Bucaramanga",
         hovertemplate="%{x|%b %Y}: $%{y:.2f}k USD<extra></extra>",
     ))
 
-    # Líneas y anotaciones de salidas
     for i, (fecha, nombre, _) in enumerate(salidas):
         ts = pd.Timestamp(fecha).timestamp() * 1000
         es_doble = "Camila" in nombre
-        color_ev = "#FF6B6B" if es_doble else AMBAR
+        color_ev = ROJO if es_doble else AMBAR
 
         fig.add_vline(x=ts, line=dict(color=color_ev, width=1.5, dash="dot"))
 
-        # Ícono persona sobre la línea
         y_icono = 5.0 - i * 0.6
         fig.add_annotation(
             x=fecha, y=y_icono,
             text=f"👤✕  <b>{nombre}</b>",
             font=dict(color=color_ev, size=11, family="'Courier New', monospace"),
-            showarrow=False, xanchor="left", bgcolor="rgba(20,20,32,0.85)",
+            showarrow=False, xanchor="left", bgcolor="rgba(255,255,255,0.92)",
             bordercolor=color_ev, borderwidth=1, borderpad=4,
         )
 
-    # Zona flatline 2024
     fig.add_vrect(
         x0="2024-01-01", x1="2024-12-31",
-        fillcolor="rgba(230,57,70,0.06)",
+        fillcolor="rgba(192,57,43,0.06)",
         line=dict(color=ROJO, width=0),
         annotation_text="2024: CERO VENTAS",
         annotation_position="top left",
         annotation_font=dict(color=ROJO, size=12),
     )
 
-    # Dos vendedores restantes
     fig.add_annotation(
         x="2024-07-01", y=2.2,
         text="👤 Carlos  👤 Teresa<br><i>2 vendedores · $0 generados</i>",
         font=dict(color=ROJO, size=11),
-        showarrow=False, bgcolor="rgba(230,57,70,0.12)",
+        showarrow=False, bgcolor="rgba(192,57,43,0.08)",
         bordercolor=ROJO, borderwidth=1, borderpad=6,
     )
 
@@ -289,7 +298,7 @@ def slide3_timeline():
         showlegend=False, height=450,
     )
     base_layout(fig, "Bucaramanga · Cada salida dejó una huella")
-    fig.write_html(f"{OUT}/slide3_timeline.html")
+    save_slide(fig, f"{OUT}/slide3_timeline.html")
     print("✓ slide3_timeline.html")
 
 
@@ -297,7 +306,6 @@ def slide3_timeline():
 # SLIDE 4A – Waffle chart: el peso real de Bucaramanga
 # ═══════════════════════════════════════════════════════════════════════════════
 def slide4a_waffle():
-    # Participación redondeada a 100 celdas
     pcts = {
         "Bogotá D.C.":  36,
         "Cali":         16,
@@ -306,9 +314,8 @@ def slide4a_waffle():
         "Barranquilla":  8,
         "Pereira":       7,
         "Cartagena":     6,
-        "Bucaramanga":   3,  # ligeramente redondeado a 3 para llegar a 100
+        "Bucaramanga":   3,
     }
-    # Construir matriz 10×10
     cells, legend = [], []
     for ciudad, n in pcts.items():
         cells.extend([ciudad] * n)
@@ -325,11 +332,7 @@ def slide4a_waffle():
         colorscale.append([i / n,       CIUDAD_COLORES[ciudad]])
         colorscale.append([(i+1) / n,   CIUDAD_COLORES[ciudad]])
 
-    # Texto por celda
     text_grid = [["" for _ in range(10)] for _ in range(10)]
-    # Marcar las celdas de Bucaramanga con "BUC"
-    buca_idx = list(pcts.keys()).index("Bucaramanga")
-    count = 0
     for r in range(9, -1, -1):
         for c in range(10):
             if cells[r * 10 + c] == "Bucaramanga":
@@ -341,26 +344,24 @@ def slide4a_waffle():
         showscale=False,
         text=text_grid[::-1],
         texttemplate="%{text}",
-        textfont=dict(color=BG, size=9, family="'Courier New', monospace"),
+        textfont=dict(color="#FFFFFF", size=9, family="'Courier New', monospace"),
         xgap=3, ygap=3,
         hovertemplate="<b>%{customdata}</b><extra></extra>",
         customdata=grid[::-1],
     ))
 
-    # Leyenda manual
     for i, (ciudad, n) in enumerate(pcts.items()):
         fig.add_annotation(
             x=10.5, y=9 - i,
             text=f"<span style='color:{CIUDAD_COLORES[ciudad]}'>■</span> {ciudad}: {n}%",
-            font=dict(size=11, color=BLANCO),
+            font=dict(size=11, color=TEXTO),
             showarrow=False, xanchor="left",
         )
 
-    # Anotación grande para Bucaramanga
     fig.add_annotation(
         x=4.5, y=-1.2,
-        text="<b style='color:#E63946'>3 de cada 100 dólares</b> son de Bucaramanga",
-        font=dict(size=13, color=BLANCO),
+        text=f"<b style='color:{ROJO}'>3 de cada 100 dólares</b> son de Bucaramanga",
+        font=dict(size=13, color=TEXTO),
         showarrow=False,
     )
 
@@ -370,7 +371,7 @@ def slide4a_waffle():
         height=480, width=820,
     )
     base_layout(fig, "¿Cuánto pesa Bucaramanga en la empresa? · Total 2022–2024")
-    fig.write_html(f"{OUT}/slide4a_waffle.html")
+    save_slide(fig, f"{OUT}/slide4a_waffle.html")
     print("✓ slide4a_waffle.html")
 
 
@@ -393,11 +394,9 @@ def slide4b_quadrant():
 
     fig = go.Figure()
 
-    # Líneas divisorias de cuadrantes
     fig.add_hline(y=avg_y, line=dict(color=GRIS, width=1, dash="dot"))
     fig.add_vline(x=avg_x, line=dict(color=GRIS, width=1, dash="dot"))
 
-    # Etiquetas de cuadrantes
     for txt, x, y, xa, ya in [
         ("Portafolio fuerte,<br>equipo pequeño",  1.5, 195, "left",  "top"),
         ("El ideal:<br>Personas + Variedad",      11,  195, "right", "top"),
@@ -408,10 +407,9 @@ def slide4b_quadrant():
             x=x, y=y, text=txt,
             font=dict(color=GRIS, size=10, family="'Courier New', monospace"),
             showarrow=False, xanchor=xa, yanchor=ya,
-            bgcolor="rgba(20,20,32,0.7)",
+            bgcolor="rgba(248,249,250,0.85)",
         )
 
-    # Puntos por sucursal
     for _, row in df.iterrows():
         ciudad = row["CIUDAD"]
         color  = CIUDAD_COLORES.get(ciudad, GRIS)
@@ -426,7 +424,7 @@ def slide4b_quadrant():
             textposition="top center" if ciudad != "Bucaramanga" else "bottom center",
             textfont=dict(color=color, size=12 if bold else 10),
             marker=dict(size=size, color=color, opacity=0.85,
-                        line=dict(width=2 if bold else 1, color=BG)),
+                        line=dict(width=2 if bold else 1, color="#FFFFFF")),
             showlegend=False,
             hovertemplate=(
                 f"<b>{ciudad}</b><br>"
@@ -444,7 +442,7 @@ def slide4b_quadrant():
         height=500,
     )
     base_layout(fig, "¿Qué impulsa las ventas? · Vendedores vs Variedad de Productos")
-    fig.write_html(f"{OUT}/slide4b_quadrant.html")
+    save_slide(fig, f"{OUT}/slide4b_quadrant.html")
     print("✓ slide4b_quadrant.html")
 
 
@@ -466,7 +464,6 @@ def slide5_radar():
     df = vend_suc.merge(variedad,"left","SucursalID").merge(vsuc,"left","SucursalID").merge(ntick,"left","SucursalID")
     df = df.merge(suc[["SUCURSAL_ID","CIUDAD"]], left_on="SucursalID", right_on="SUCURSAL_ID")
 
-    # Retención = inverso de rotación normalizado
     df["retencion"] = df["activos"] / (df["activos"] + df["rotacion"])
 
     dims = ["activos","n_prod","ventas","n_tickets","retencion"]
@@ -479,13 +476,12 @@ def slide5_radar():
     fig = go.Figure()
 
     capas = [
-        ("Bogotá D.C.",  AZUL,   0.5,  True,  "toself"),
-        ("Promedio",     AMBAR,  0.3,  True,  "toself"),
-        ("Pereira",      NEON,   0.5,  True,  "toself"),
-        ("Bucaramanga",  ROJO,   0.6,  True,  "toself"),
+        ("Bogotá D.C.",  AZUL,   0.7,  True,  "toself"),
+        ("Promedio",     AMBAR,  0.5,  True,  "toself"),
+        ("Pereira",      VERDE,  0.7,  True,  "toself"),
+        ("Bucaramanga",  ROJO,   0.8,  True,  "toself"),
     ]
 
-    # Calcular promedio empresa
     prom_vals = [df[f"{d}_n"].mean() for d in dims]
     prom_vals += [prom_vals[0]]
 
@@ -507,7 +503,7 @@ def slide5_radar():
             line=dict(color=color, width=ancho),
             marker=dict(size=6 if ancho > 2 else 4, color=color),
             fill=fillmode,
-            fillcolor=f"rgba({int(color[1:3],16)},{int(color[3:5],16)},{int(color[5:],16)},{opacity*0.25})",
+            fillcolor=f"rgba({int(color[1:3],16)},{int(color[3:5],16)},{int(color[5:],16)},{opacity*0.35})",
             hovertemplate=f"<b>{ciudad}</b><br>%{{theta}}: %{{r:.2f}}<extra></extra>",
         ))
 
@@ -515,18 +511,18 @@ def slide5_radar():
         polar=dict(
             bgcolor=BG_CARD,
             radialaxis=dict(visible=True, range=[0,1], tickvals=[0.25,0.5,0.75,1.0],
-                            tickfont=dict(color=GRIS, size=9), gridcolor="#1E1E2E",
+                            tickfont=dict(color=GRIS, size=9), gridcolor="#E8ECEF",
                             linecolor=GRIS),
-            angularaxis=dict(tickfont=dict(color=BLANCO, size=11), gridcolor="#1E1E2E",
+            angularaxis=dict(tickfont=dict(color=TEXTO, size=11), gridcolor="#E8ECEF",
                              linecolor=GRIS),
         ),
-        legend=dict(x=1.05, y=0.95, font=dict(color=BLANCO, size=11),
-                    bgcolor="rgba(0,0,0,0)"),
+        legend=dict(x=1.05, y=0.95, font=dict(color=TEXTO, size=11),
+                    bgcolor="rgba(255,255,255,0)"),
         height=520,
     )
     base_layout(fig, "Diagnóstico Multidimensional · Bucaramanga vs la Empresa")
     fig.update_layout(paper_bgcolor=BG, plot_bgcolor=BG)
-    fig.write_html(f"{OUT}/slide5_radar.html")
+    save_slide(fig, f"{OUT}/slide5_radar.html")
     print("✓ slide5_radar.html")
 
 
@@ -549,7 +545,6 @@ def slide6_dumbbell():
         vb = buca.get(anio, 0) / 1000
         vp = per.get(anio, 0) / 1000
 
-        # Línea conectora
         fig.add_trace(go.Scatter(
             x=[vb, vp], y=[y, y],
             mode="lines",
@@ -558,11 +553,10 @@ def slide6_dumbbell():
             hoverinfo="skip",
         ))
 
-        # Punto Bucaramanga
         fig.add_trace(go.Scatter(
             x=[vb], y=[y],
             mode="markers+text",
-            marker=dict(size=18, color=ROJO, line=dict(width=2, color=BG)),
+            marker=dict(size=18, color=ROJO, line=dict(width=2, color="#FFFFFF")),
             text=[f"${vb:.1f}k" if vb > 0 else "$0"],
             textposition="bottom center",
             textfont=dict(color=ROJO, size=12),
@@ -571,29 +565,22 @@ def slide6_dumbbell():
             hovertemplate=f"<b>Bucaramanga {anio}</b>: ${vb:.1f}k USD<extra></extra>",
         ))
 
-        # Punto Pereira
         fig.add_trace(go.Scatter(
             x=[vp], y=[y],
             mode="markers+text",
-            marker=dict(size=18, color=NEON, line=dict(width=2, color=BG)),
+            marker=dict(size=18, color=VERDE, line=dict(width=2, color="#FFFFFF")),
             text=[f"${vp:.1f}k"],
             textposition="bottom center",
-            textfont=dict(color=NEON, size=12),
+            textfont=dict(color=VERDE, size=12),
             name="Pereira" if anio==2022 else None,
             showlegend=(anio==2022),
             hovertemplate=f"<b>Pereira {anio}</b>: ${vp:.1f}k USD<extra></extra>",
         ))
 
-        # Flecha de dirección
-        direccion_buca = "↑" if anio > 2022 and buca.get(anio,0) > buca.get(anio-1,0) else "↓"
-        direccion_per  = "↑" if anio > 2022 and per.get(anio,0) > per.get(anio-1,0) else "↑"
-
-    # Etiquetas de año
     for anio, y in zip(anios, y_pos):
         fig.add_annotation(x=-3, y=y, text=f"<b>{anio}</b>",
-                           font=dict(color=BLANCO, size=14), showarrow=False, xanchor="right")
+                           font=dict(color=TEXTO, size=14), showarrow=False, xanchor="right")
 
-    # Anotación del cruce 2023
     fig.add_annotation(
         x=20, y=2.35,
         text="Pereira supera a Bucaramanga<br>por primera vez en 2023",
@@ -602,14 +589,13 @@ def slide6_dumbbell():
         ax=60, ay=-20,
     )
 
-    # Brecha 2024
     fig.add_annotation(
         x=26, y=0.7,
-        text=f"<b style='color:{NEON}'>Pereira: $52.6k</b> vs "
+        text=f"<b style='color:{VERDE}'>Pereira: $52.6k</b> vs "
              f"<b style='color:{ROJO}'>Bucaramanga: $0</b><br>"
              f"Brecha: <b>$52,590 USD</b>",
-        font=dict(color=BLANCO, size=12),
-        showarrow=False, bgcolor="rgba(20,20,32,0.9)",
+        font=dict(color=TEXTO, size=12),
+        showarrow=False, bgcolor="rgba(255,255,255,0.92)",
         bordercolor=AMBAR, borderwidth=1, borderpad=8,
     )
 
@@ -617,12 +603,12 @@ def slide6_dumbbell():
         xaxis=dict(title="Ventas anuales (miles USD)", showgrid=True, range=[-5, 70]),
         yaxis=dict(visible=False, range=[0.3, 3.7]),
         showlegend=True,
-        legend=dict(x=0.75, y=0.98, font=dict(color=BLANCO, size=12),
-                    bgcolor="rgba(0,0,0,0)"),
+        legend=dict(x=0.75, y=0.98, font=dict(color=TEXTO, size=12),
+                    bgcolor="rgba(255,255,255,0)"),
         height=380,
     )
     base_layout(fig, "Pereira vs Bucaramanga · La inversión que nadie esperaba")
-    fig.write_html(f"{OUT}/slide6_dumbbell.html")
+    save_slide(fig, f"{OUT}/slide6_dumbbell.html")
     print("✓ slide6_dumbbell.html")
 
 
@@ -630,7 +616,6 @@ def slide6_dumbbell():
 # SLIDE 7 – Plan de rescate: déficits reales + roadmap de 3 fases
 # ═══════════════════════════════════════════════════════════════════════════════
 def slide7_matrix():
-    # ── Datos reales para el bullet chart ─────────────────────────────────
     vend_suc  = vend.groupby("SucursalID").agg(activos=("activo","sum")).reset_index()
     variedad  = (tk.groupby("Sucursal ID")["Producto ID"].nunique()
                  .reset_index().rename(columns={"Sucursal ID":"SucursalID","Producto ID":"n_prod"}))
@@ -641,16 +626,14 @@ def slide7_matrix():
     buca_prod = int(variedad[variedad["SucursalID"]==7]["n_prod"].iloc[0])
     buca_vmes = float(vsuc_mes[vsuc_mes["SucursalID"]==7]["v_mes"].iloc[0])
 
-    # Referencias desde los datos
-    per_prod  = int(variedad[variedad["SucursalID"]==8]["n_prod"].iloc[0])       # 133
-    per_23avg = tk[(tk["Sucursal ID"]==8) & (tk["year"]==2023)]["Precio Total (USD)"].sum() / 12  # $2,135
-    emp_vend  = float(vend_suc[vend_suc["SucursalID"]!=7]["activos"].mean())     # 5.9
-    emp_prod  = float(variedad[variedad["SucursalID"]!=7]["n_prod"].mean())      # 145
-    bog_vend  = int(vend_suc[vend_suc["SucursalID"]==1]["activos"].iloc[0])      # 12
-    bog_prod  = int(variedad[variedad["SucursalID"]==1]["n_prod"].iloc[0])       # 205
-    bog_vmes  = float(vsuc_mes[vsuc_mes["SucursalID"]==1]["v_mes"].iloc[0])      # 12,485
+    per_prod  = int(variedad[variedad["SucursalID"]==8]["n_prod"].iloc[0])
+    per_23avg = tk[(tk["Sucursal ID"]==8) & (tk["year"]==2023)]["Precio Total (USD)"].sum() / 12
+    emp_vend  = float(vend_suc[vend_suc["SucursalID"]!=7]["activos"].mean())
+    emp_prod  = float(variedad[variedad["SucursalID"]!=7]["n_prod"].mean())
+    bog_vend  = int(vend_suc[vend_suc["SucursalID"]==1]["activos"].iloc[0])
+    bog_prod  = int(variedad[variedad["SucursalID"]==1]["n_prod"].iloc[0])
+    bog_vmes  = float(vsuc_mes[vsuc_mes["SucursalID"]==1]["v_mes"].iloc[0])
 
-    # ── Figura con dos paneles ─────────────────────────────────────────────
     fig = make_subplots(
         rows=1, cols=2,
         subplot_titles=("Los tres déficits de Bucaramanga", "El plan de rescate · 3 fases"),
@@ -661,37 +644,36 @@ def slide7_matrix():
     metricas = [
         dict(
             label="Vendedores<br>activos",
-            actual=int(buca_row["activos"]),  # 2
-            meta=6,                            # meta Fase 1
-            empresa=emp_vend,                  # 5.9
-            maximo=bog_vend,                   # 12
+            actual=int(buca_row["activos"]),
+            meta=6,
+            empresa=emp_vend,
+            maximo=bog_vend,
             unidad="",
             y=3,
         ),
         dict(
             label="Productos<br>distintos vendidos",
-            actual=buca_prod,                  # 72
-            meta=per_prod,                     # 133 (nivel Pereira)
-            empresa=emp_prod,                  # 145
-            maximo=bog_prod,                   # 205
+            actual=buca_prod,
+            meta=per_prod,
+            empresa=emp_prod,
+            maximo=bog_prod,
             unidad="",
             y=2,
         ),
         dict(
             label="Ventas promedio<br>mensuales (USD)",
-            actual=0,                          # $0 en 2024
-            meta=round(per_23avg),             # $2,135 (Pereira 2023)
-            empresa=round(bog_vmes * 0.35),    # aprox promedio empresa excl. Bogotá
-            maximo=round(bog_vmes),            # $12,485 Bogotá
+            actual=0,
+            meta=round(per_23avg),
+            empresa=round(bog_vmes * 0.35),
+            maximo=round(bog_vmes),
             unidad="$",
             y=1,
         ),
     ]
 
     for m in metricas:
-        norm = lambda v: v / m["maximo"]  # normalizar sobre máximo
+        norm = lambda v: v / m["maximo"]
 
-        # Barra de fondo: rango completo (0 → máximo)
         fig.add_trace(go.Bar(
             x=[1.0], y=[m["y"]],
             orientation="h",
@@ -700,7 +682,6 @@ def slide7_matrix():
             width=0.35,
         ), row=1, col=1)
 
-        # Barra promedio empresa
         fig.add_trace(go.Bar(
             x=[norm(m["empresa"])], y=[m["y"]],
             orientation="h",
@@ -710,28 +691,25 @@ def slide7_matrix():
             hovertemplate=f"Promedio empresa: {m['unidad']}{m['empresa']:,.0f}<extra></extra>",
         ), row=1, col=1)
 
-        # Punto actual — Bucaramanga (rojo)
         fig.add_trace(go.Scatter(
             x=[norm(m["actual"]) if m["actual"] > 0 else 0.012],
             y=[m["y"]],
             mode="markers",
             marker=dict(size=16, color=ROJO, symbol="diamond",
-                        line=dict(width=2, color=BLANCO)),
+                        line=dict(width=2, color="#FFFFFF")),
             showlegend=False,
             hovertemplate=f"Bucaramanga hoy: {m['unidad']}{m['actual']:,}<extra></extra>",
         ), row=1, col=1)
 
-        # Punto meta — objetivo del plan (verde)
         fig.add_trace(go.Scatter(
             x=[norm(m["meta"])], y=[m["y"]],
             mode="markers",
-            marker=dict(size=16, color=NEON, symbol="circle",
-                        line=dict(width=2, color=BLANCO)),
+            marker=dict(size=16, color=VERDE, symbol="circle",
+                        line=dict(width=2, color="#FFFFFF")),
             showlegend=False,
             hovertemplate=f"Meta del plan: {m['unidad']}{m['meta']:,}<extra></extra>",
         ), row=1, col=1)
 
-        # Flecha del gap: de actual a meta
         fig.add_annotation(
             x=norm(m["meta"]), y=m["y"] + 0.28,
             ax=norm(m["actual"]) if m["actual"] > 0 else 0.012,
@@ -741,7 +719,6 @@ def slide7_matrix():
             arrowcolor=AMBAR, text="",
         )
 
-        # Labels: actual y meta
         fig.add_annotation(
             x=norm(m["actual"]) if m["actual"] > 0 else 0.012,
             y=m["y"] - 0.27,
@@ -750,14 +727,13 @@ def slide7_matrix():
         )
         fig.add_annotation(
             x=norm(m["meta"]), y=m["y"] - 0.27,
-            text=f"<b style='color:{NEON}'>META: {m['unidad']}{m['meta']:,}</b>",
+            text=f"<b style='color:{VERDE}'>META: {m['unidad']}{m['meta']:,}</b>",
             font=dict(size=10), showarrow=False, xref="x", yref="y",
         )
 
-    # Leyenda manual panel A
-    for sym, color, txt in [("diamond", ROJO, "Bucaramanga hoy"),
-                              ("circle",  NEON, "Meta del plan"),
-                              ("square",  GRIS, "Promedio empresa")]:
+    for sym, color, txt in [("diamond", ROJO,  "Bucaramanga hoy"),
+                              ("circle",  VERDE, "Meta del plan"),
+                              ("square",  GRIS,  "Promedio empresa")]:
         fig.add_trace(go.Scatter(
             x=[None], y=[None], mode="markers",
             marker=dict(size=10, color=color, symbol=sym),
@@ -768,7 +744,7 @@ def slide7_matrix():
     fig.update_yaxes(
         tickvals=[1, 2, 3],
         ticktext=["Ventas/mes", "Productos<br>distintos", "Vendedores<br>activos"],
-        tickfont=dict(color=BLANCO, size=11),
+        tickfont=dict(color=TEXTO, size=11),
         showgrid=False, row=1, col=1,
     )
 
@@ -789,7 +765,7 @@ def slide7_matrix():
             y=2,
         ),
         dict(
-            nombre="FASE 3", inicio=5, fin=8, color=NEON,
+            nombre="FASE 3", inicio=5, fin=8, color=VERDE,
             titulo="Escalar y replicar",
             acciones=["Benchmark mensual vs Pereira", "Replicar modelo en Cartagena", "Revisión trimestral de viabilidad"],
             kpi=f"Meta: ${per_23avg/1000:.1f}k USD/mes",
@@ -798,40 +774,36 @@ def slide7_matrix():
     ]
 
     for f in fases:
-        # Barra de la fase
         fig.add_trace(go.Bar(
             x=[f["fin"] - f["inicio"]],
             y=[f["y"]],
             base=f["inicio"],
             orientation="h",
-            marker=dict(color=f["color"], opacity=0.25,
+            marker=dict(color=f["color"], opacity=0.20,
                         line=dict(color=f["color"], width=2)),
             showlegend=False,
             width=0.55,
             hovertemplate=f"<b>{f['nombre']}</b><br>Mes {f['inicio']+1} – {f['fin']}<br>{f['titulo']}<extra></extra>",
         ), row=1, col=2)
 
-        # Nombre de fase y título
         fig.add_annotation(
             x=f["inicio"] + (f["fin"] - f["inicio"]) / 2,
             y=f["y"] + 0.38,
             text=f"<b style='color:{f['color']}'>{f['nombre']}</b>  ·  {f['titulo']}",
-            font=dict(size=11, color=BLANCO), showarrow=False,
+            font=dict(size=11, color=TEXTO), showarrow=False,
             xref="x2", yref="y2",
         )
 
-        # Acciones dentro de la barra
         texto_acc = "<br>".join(f"• {a}" for a in f["acciones"])
         fig.add_annotation(
             x=f["inicio"] + (f["fin"] - f["inicio"]) / 2,
             y=f["y"],
             text=texto_acc,
-            font=dict(size=9.5, color=BLANCO), showarrow=False,
+            font=dict(size=9.5, color=TEXTO), showarrow=False,
             xref="x2", yref="y2",
             align="left",
         )
 
-        # KPI bajo la barra
         fig.add_annotation(
             x=f["inicio"] + (f["fin"] - f["inicio"]) / 2,
             y=f["y"] - 0.38,
@@ -840,7 +812,6 @@ def slide7_matrix():
             xref="x2", yref="y2",
         )
 
-    # Etiquetas de meses en eje X
     fig.update_xaxes(
         tickvals=list(range(9)),
         ticktext=[f"Mes {i}" if i > 0 else "Hoy" for i in range(9)],
@@ -859,11 +830,11 @@ def slide7_matrix():
     fig.update_layout(
         barmode="overlay",
         height=490,
-        legend=dict(x=0.01, y=0.01, font=dict(color=BLANCO, size=10),
-                    bgcolor="rgba(20,20,32,0.8)", bordercolor=GRIS, borderwidth=1),
+        legend=dict(x=0.01, y=0.01, font=dict(color=TEXTO, size=10),
+                    bgcolor="rgba(248,249,250,0.9)", bordercolor=GRIS, borderwidth=1),
     )
     base_layout(fig, "Plan de Rescate · Bucaramanga · Basado en datos reales")
-    fig.write_html(f"{OUT}/slide7_matrix.html")
+    save_slide(fig, f"{OUT}/slide7_matrix.html")
     print("✓ slide7_matrix.html")
 
 
@@ -872,61 +843,226 @@ def slide7_matrix():
 # ═══════════════════════════════════════════════════════════════════════════════
 def generar_index():
     slides = [
-        ("slide1_ecg.html",       "Slide 1 — ECG: La línea que se aplana"),
-        ("slide2_bump.html",      "Slide 2 — Bump chart: El ranking que cuenta la historia"),
-        ("slide3_timeline.html",  "Slide 3 — Timeline anotado: La escena del crimen"),
-        ("slide4a_waffle.html",   "Slide 4A — Waffle: El peso real de Bucaramanga"),
-        ("slide4b_quadrant.html", "Slide 4B — Quadrant: El veredicto sobre Rafael y Ana"),
-        ("slide5_radar.html",     "Slide 5 — Radar: Radiografía de 5 dimensiones"),
-        ("slide6_dumbbell.html",  "Slide 6 — Dumbbell: Pereira vs Bucaramanga"),
-        ("slide7_matrix.html",    "Slide 7 — Matriz + Proyección: La decisión es hoy"),
+        ("slide1_ecg.html",       "ECG: La línea que se aplana"),
+        ("slide2_bump.html",      "Bump chart: El ranking que cuenta la historia"),
+        ("slide3_timeline.html",  "Timeline anotado: La escena del crimen"),
+        ("slide4a_waffle.html",   "Waffle: El peso real de Bucaramanga"),
+        ("slide4b_quadrant.html", "Quadrant: El veredicto sobre Rafael y Ana"),
+        ("slide5_radar.html",     "Radar: Radiografía de 5 dimensiones"),
+        ("slide6_dumbbell.html",  "Dumbbell: Pereira vs Bucaramanga"),
+        ("slide7_matrix.html",    "Matriz + Roadmap: La decisión es hoy"),
     ]
-    items = "\n".join(
-        f'<li><a href="{f}" target="_blank">'
-        f'<span class="num">{i+1:02d}</span>{label}</a></li>'
-        for i, (f, label) in enumerate(slides)
+
+    nav_items = "\n".join(
+        f'''      <button class="slide-btn" onclick="load({i})" id="btn-{i}">
+        <span class="num">{i+1:02d}</span>
+        <span class="label">{label}</span>
+      </button>'''
+        for i, (_, label) in enumerate(slides)
     )
+
+    slides_js = "[" + ", ".join(f'"{f}"' for f, _ in slides) + "]"
+
     html = f"""<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WirallesTEC · La sucursal que perdió el pulso</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-    * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+
     body {{
       font-family: 'JetBrains Mono', 'Courier New', monospace;
-      background: #0D0D0D; color: #F0F0F0;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 60px 20px; min-height: 100vh;
+      background: #F8F9FA;
+      color: #1A1A2E;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }}
-    .tag {{ color: #4A4A6A; font-size: 12px; letter-spacing: 3px; margin-bottom: 10px; }}
-    h1 {{ color: #00FF9F; font-size: 26px; margin-bottom: 6px; text-align: center; }}
-    .sub {{ color: #4A4A6A; font-size: 13px; margin-bottom: 50px; }}
-    .ecg {{ color: #E63946; font-size: 36px; margin-bottom: 16px; letter-spacing: -2px; }}
-    ul {{ list-style: none; width: 100%; max-width: 580px; }}
-    li {{ margin: 10px 0; }}
-    a {{
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 20px; background: #141420;
-      border: 1px solid #1E1E2E; border-radius: 6px;
-      color: #F0F0F0; text-decoration: none; font-size: 13px;
-      transition: border-color 0.2s, background 0.2s;
+
+    /* ── HEADER ── */
+    .header {{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 20px;
+      height: 52px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E8ECEF;
+      flex-shrink: 0;
     }}
-    a:hover {{ border-color: #00FF9F; background: #1A1A30; color: #00FF9F; }}
+    .header-tag {{
+      color: #95A5A6;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }}
+    .header-sep {{ color: #E8ECEF; }}
+    .header-title {{
+      font-size: 13px;
+      font-weight: 700;
+      color: #1A1A2E;
+    }}
+    .header-title span {{ color: #C0392B; }}
+    .header-spacer {{ flex: 1; }}
+    .nav-arrows {{ display: flex; gap: 6px; }}
+    .nav-arrows button {{
+      background: #F8F9FA;
+      border: 1px solid #E8ECEF;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-family: inherit;
+      font-size: 13px;
+      color: #95A5A6;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }}
+    .nav-arrows button:hover {{ background: #E8ECEF; color: #1A1A2E; }}
+    .slide-counter {{
+      font-size: 11px;
+      color: #95A5A6;
+      min-width: 50px;
+      text-align: center;
+    }}
+
+    /* ── LAYOUT ── */
+    .layout {{
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }}
+
+    /* ── SIDEBAR ── */
+    .sidebar {{
+      width: 248px;
+      flex-shrink: 0;
+      background: #FFFFFF;
+      border-right: 1px solid #E8ECEF;
+      overflow-y: auto;
+      padding: 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }}
+    .sidebar-label {{
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #BDC3C7;
+      text-transform: uppercase;
+      padding: 2px 8px 10px;
+    }}
+    .slide-btn {{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      background: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      font-size: 12px;
+      color: #1A1A2E;
+      transition: background 0.12s, border-color 0.12s;
+    }}
+    .slide-btn:hover {{
+      background: #F8F9FA;
+      border-color: #E8ECEF;
+    }}
+    .slide-btn.active {{
+      background: #F0FAF8;
+      border-color: #16A085;
+      color: #16A085;
+    }}
+    .slide-btn.active .num {{
+      background: #16A085;
+      color: #FFFFFF;
+      border-color: #16A085;
+    }}
     .num {{
-      background: #1E1E2E; color: #4A4A6A;
-      padding: 3px 8px; border-radius: 4px;
-      font-size: 11px; min-width: 28px; text-align: center;
+      flex-shrink: 0;
+      min-width: 26px;
+      height: 22px;
+      background: #F8F9FA;
+      border: 1px solid #E8ECEF;
+      border-radius: 4px;
+      font-size: 10px;
+      color: #95A5A6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }}
+    .label {{ line-height: 1.3; }}
+
+    /* ── VIEWER ── */
+    .viewer {{
+      flex: 1;
+      overflow: hidden;
+      background: #F8F9FA;
+    }}
+    .viewer iframe {{
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }}
   </style>
 </head>
 <body>
-  <div class="tag">TALLER FINAL · VISUALIZACIÓN · MAYO 2026</div>
-  <div class="ecg">_/&#8254;\\_/&#8254;\\____</div>
-  <h1>La sucursal que perdió el pulso</h1>
-  <p class="sub">WirallesTEC · Diagnóstico forense de datos · 7 minutos</p>
-  <ul>{items}</ul>
+
+  <header class="header">
+    <span class="header-tag">WirallesTEC</span>
+    <span class="header-sep">·</span>
+    <span class="header-title">La sucursal que <span>perdió el pulso</span></span>
+    <div class="header-spacer"></div>
+    <div class="nav-arrows">
+      <button onclick="loadPrev()" title="Slide anterior (←)">&#8592;</button>
+      <span class="slide-counter" id="counter">1 / {len(slides)}</span>
+      <button onclick="loadNext()" title="Slide siguiente (→)">&#8594;</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="sidebar-label">Slides</div>
+{nav_items}
+    </nav>
+    <div class="viewer">
+      <iframe id="viewer-frame" src="{slides[0][0]}"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const slides = {slides_js};
+    let active = 0;
+
+    function load(idx) {{
+      if (idx < 0 || idx >= slides.length) return;
+      active = idx;
+      document.getElementById('viewer-frame').src = slides[idx];
+      document.querySelectorAll('.slide-btn').forEach((b, i) => {{
+        b.classList.toggle('active', i === idx);
+      }});
+      document.getElementById('counter').textContent = (idx + 1) + ' / ' + slides.length;
+    }}
+
+    function loadNext() {{ load(Math.min(active + 1, slides.length - 1)); }}
+    function loadPrev() {{ load(Math.max(active - 1, 0)); }}
+
+    document.addEventListener('keydown', e => {{
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') loadNext();
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   loadPrev();
+    }});
+
+    // Marcar el primer slide como activo al cargar
+    document.getElementById('btn-0').classList.add('active');
+  </script>
+
 </body>
 </html>"""
     with open(f"{OUT}/index.html", "w") as f:
