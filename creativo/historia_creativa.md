@@ -1,5 +1,5 @@
 # Guion de Presentación Creativa – WirallesTEC
-**"La sucursal que perdió el pulso"**
+**"Bucaramanga: el caso para reabrir"**
 Duración total: 7 minutos | Taller Final · Visualización · Mayo 2026
 
 ---
@@ -24,308 +24,296 @@ Duración total: 7 minutos | Taller Final · Visualización · Mayo 2026
 
 *[Pausa de 2 segundos.]*
 
-"Es el historial de ventas de una de las sucursales de WirallesTEC."
+"Es el historial de ventas de Bucaramanga, una de las ocho sucursales de WirallesTEC."
 
-*[Señalar la zona verde con actividad — 2022 y 2023]*
+*[Señalar la zona verde — 2022 y 2023]*
 
-"Aquí hay vida. Irregular, con picos y valles, pero hay actividad. Esta es Bucaramanga entre 2022 y 2023."
+"Aquí hay vida. Irregular, pero real. Hay equipo, hay clientes, hay ventas."
 
 *[Señalar lentamente la zona donde la línea se aplana — enero 2024]*
 
 "Y acá... *la línea se vuelve plana.*"
 
-*[Pausa larga — 3 segundos.]*
+*[PAUSA — 3 segundos.]*
 
 *"Enero 2024. Febrero. Marzo. Hasta diciembre."*
 
-"**Doce meses consecutivos. Cero dólares en ventas.**"
+"**Doce meses. Cero dólares.**"
 
-*[Señalar el KPI rojo en la esquina superior derecha del gráfico]*
+*[Señalar el KPI rojo en la esquina superior derecha]*
 
-"Hoy vamos a hacer el diagnóstico de qué mató esta sucursal. Y vamos a proponer el tratamiento."
+"La sucursal no cerró formalmente. Sigue en nómina. Sigue en el sistema. Pero comercialmente...*está dormida.*"
+
+*[Pausa. Mirar al público.]*
+
+"Hoy no venimos a hacer el acta de defunción. Venimos a presentar el caso para despertarla."
 
 ---
 
 ## SLIDE 2 — Bump chart `[slide2_bump.html]`
-### ⏱ 0:45 – 1:40 | "El ranking que nadie quiso ver"
+### ⏱ 0:45 – 1:40 | "No siempre fue así"
 
 ---
 
 *[Cambiar al bump chart. Dar 2 segundos para que el público lo lea.]*
 
-"WirallesTEC tiene ocho sucursales. Este gráfico no muestra cuánto vende cada una — muestra su *posición* en el ranking, año a año."
+"Para entender por qué vale la pena reabrir, primero hay que ver de dónde viene esta sucursal."
 
-*[Señalar la línea azul de Bogotá — plana en la parte superior]*
-
-"Bogotá: puesto uno en 2022, puesto uno en 2023, puesto uno en 2024. Inamovible."
+"Este gráfico no muestra cuánto vende cada sucursal — muestra su *posición* en el ranking, año a año."
 
 *[Señalar la línea verde de Pereira — la que sube]*
 
-"Pereira: puesto ocho en 2022. Cinco en 2023. **Cuatro en 2024.** La única sucursal con trayectoria consistentemente ascendente."
+"Pereira: puesto ocho en 2022. Cinco en 2023. **Cuatro en 2024.** Ascenso constante."
 
-*[Señalar la línea roja de Bucaramanga — la que no se mueve y luego desaparece]*
+*[Señalar la línea roja de Bucaramanga]*
 
-"Y Bucaramanga: puesto siete en 2022. Puesto siete en 2023."
+"Bucaramanga: puesto siete en 2022. Siete en 2023."
 
 *[Señalar el símbolo ⊘ en 2024]*
 
-"En 2024... *ya no está en el ranking.* No porque no tenga posición — sino porque no hay nada que rankear."
+"En 2024... *ya no aparece.* No porque sea la peor — sino porque no tiene nada que rankear."
 
 *[Pausa.]*
 
-"Dos sucursales, misma empresa, trayectorias opuestas. Este gráfico hace la pregunta. Los siguientes responden."
+"Pero noten algo clave: Bucaramanga nunca cayó al último lugar por desempeño. Cayó por **ausencia**. Y eso hace toda la diferencia para el argumento que viene."
 
 ---
 
 ## SLIDE 3 — Timeline anotado `[slide3_timeline.html]`
-### ⏱ 1:40 – 2:45 | "La escena del crimen"
+### ⏱ 1:40 – 2:45 | "La causa es identificable"
 
 ---
 
-*[Cambiar al timeline. Señalar el área verde con actividad.]*
+*[Cambiar al timeline. Señalar el área verde.]*
 
-"Volvemos a Bucaramanga. Pero ahora con más información."
+"¿Cuándo empezó a caer? ¿Por qué? Este gráfico lo muestra con precisión."
 
-"El área verde son las ventas mensuales. Y cada uno de estos marcadores..."
+"El área verde son las ventas mensuales de Bucaramanga. Y cada marcador..."
 
 *[Señalar el primer ícono — Lourdes, octubre 2022]*
 
 "...es la fecha en que un vendedor dejó la sucursal."
 
-*[Recorrer lentamente cada ícono de izquierda a derecha, nombrándolos]*
+*[Recorrer cada ícono de izquierda a derecha]*
 
-"Octubre de 2022: se va **Lourdes.** Abril de 2023: se va **Iván.** Junio de 2023: se va **Gustavo.**"
+"Octubre de 2022: se va **Lourdes.** Abril de 2023: **Iván.** Junio de 2023: **Gustavo.**"
 
-*[Pausa. Señalar cómo el área verde empieza a menguar después de cada salida.]*
+*[Señalar cómo el área verde se achica después de cada salida]*
 
-"Noten lo que pasa después de cada salida. El área no colapsa de golpe. Se va encogiendo."
+"Después de cada salida, las ventas bajan un escalón. No de golpe — gradualmente."
 
 *[Señalar los últimos dos íconos — Laura y Camila, marzo 2024]*
 
-"Y en marzo de 2024 pasa algo distinto: **dos vendedores se van el mismo mes.** Laura y Camila. Los últimos con experiencia en la sucursal."
+"Y en marzo de 2024: **Laura y Camila se van el mismo mes.** Los últimos dos con experiencia acumulada."
 
-*[Señalar la zona plana roja — toda la segunda mitad del gráfico]*
+*[Señalar la zona roja plana]*
 
-"Quedan dos personas. Y el área... desaparece."
+"Quedan Carlos y Teresa. Solos. Sin equipo, sin red de soporte. El área desaparece."
 
-*[Señalar los dos íconos solitarios en la zona roja]*
+*[Pausa. Voz más clara, no dramática.]*
 
-"Carlos y Teresa siguen ahí. Pero solos, sin soporte, sin equipo — no pueden cargar una sucursal enteros."
-
-*[Pausa. Voz más baja.]*
-
-"*Esto no fue un accidente. Fue una hemorragia lenta.*"
+"La causa no fue el mercado. No fue el producto. Fue la rotación de personal. **Una causa identificable. Una causa corregible.**"
 
 ---
 
 ## SLIDE 4A — Waffle chart `[slide4a_waffle.html]`
-### ⏱ 2:45 – 3:15 | "El peso real"
+### ⏱ 2:45 – 3:15 | "El costo de no actuar"
 
 ---
 
 *[Cambiar al waffle. Señalar la cuadrícula completa.]*
 
-"Antes de entrar al debate entre Rafael y Ana, necesitamos dimensionar el problema."
+"Antes de ver cómo se reabre, pongamos en escala el problema."
 
-"Esta cuadrícula representa el **100% de los ingresos de WirallesTEC en tres años**: un millón doscientos cincuenta y cuatro mil dólares."
+"Esta cuadrícula es el **100% de los ingresos de WirallesTEC en tres años**: $1,254,415 USD."
 
-*[Señalar los cuadros de Bogotá — el bloque más grande]*
+*[Señalar los cuadros grandes — Bogotá, Cali, Medellín]*
 
 "Bogotá: 36 cuadros. Cali: 16. Medellín: 15."
 
-*[Dejar una pausa. Señalar lentamente los 3 cuadros rojos de Bucaramanga.]*
+*[Pausa. Señalar los 3 cuadros rojos de Bucaramanga.]*
 
 "Bucaramanga."
 
-*[Pausa larga — 3 segundos.]*
+*[PAUSA — 3 segundos.]*
 
-"**Tres cuadros.**"
+"**Tres cuadros.** De cada cien dólares que genera esta empresa, Bucaramanga aporta menos de tres."
 
-"De cada cien dólares que genera esta empresa, Bucaramanga aporta menos de tres."
+*[Pausa. Cambiar el tono — propositivo, no fúnebre.]*
 
-*[Pausa.]*
+"Y en 2024: **cero.** No tres cuadros. Cero cuadros."
 
-"Ahora sí — entendamos por qué."
+"Ese no es argumento para cerrar. Es argumento para actuar — porque el potencial está ahí, dormido, con dos personas esperando."
 
 ---
 
 ## SLIDE 4B — Quadrant chart `[slide4b_quadrant.html]`
-### ⏱ 3:15 – 4:05 | "Un gráfico, dos hipótesis resueltas"
+### ⏱ 3:15 – 4:05 | "El mapa de la recuperación"
 
 ---
 
 *[Cambiar al cuadrante. Señalar los ejes.]*
 
-"Antes de mostrarles este gráfico, queremos ser claros sobre nuestra postura: **los datos nos llevan a respaldar la visión de Ana como prioridad inmediata.** Sin un equipo de ventas estable, ningún portafolio genera resultados. Eso no significa que Rafael esté equivocado — su propuesta es válida, pero viene después. Ahora les mostramos por qué."
+"Este gráfico define la ruta. El eje horizontal: vendedores activos. El eje vertical: variedad de productos."
 
-*[Pausa de un segundo. Dejar que la postura aterrice.]*
+*[Señalar los cuatro cuadrantes]*
 
-"Este gráfico tiene dos ejes. El horizontal mide vendedores activos: la propuesta de Ana. El vertical mide variedad de productos: la propuesta de Rafael."
+"El ideal está arriba a la derecha: equipo completo, catálogo amplio."
 
-*[Señalar los cuatro cuadrantes con sus etiquetas]*
+*[Señalar Bogotá — arriba a la derecha]*
 
-"Cuatro cuadrantes. El ideal está arriba a la derecha: muchos vendedores, mucha variedad."
+"Bogotá está ahí. Es la referencia."
 
-*[Señalar el punto de Bogotá — arriba a la derecha, grande]*
+*[Señalar Bucaramanga — abajo a la izquierda]*
 
-"Bogotá. Exactamente donde debe estar."
+"Bucaramanga está acá. Sola. En el peor cuadrante. Sin equipo suficiente y sin catálogo suficiente."
 
-*[Señalar lentamente el punto de Bucaramanga — abajo a la izquierda, solo]*
+*[Señalar Pereira — cuadrante inferior derecho]*
 
-"Y Bucaramanga."
+"Y Pereira está aquí: pocos vendedores activos hoy, pero con variedad. Por eso aún vende."
 
 *[Pausa.]*
 
-"Sola. En el peor cuadrante. Sin vendedores suficientes — y sin variedad suficiente."
+"La reapertura de Bucaramanga requiere moverse en los dos ejes. Pero en este cuadrante también está la respuesta a la pregunta de Rafael y Ana: **¿qué va primero?**"
 
-*[Señalar el tamaño de las burbujas]*
-
-"El tamaño de cada burbuja es el volumen de ventas. Bucaramanga es la más pequeña."
-
-*[Señalar a Pereira — cuadrante inferior derecho]*
-
-"Noten que Pereira también tiene pocos vendedores activos hoy. Pero está en el cuadrante derecho: tiene variedad. Eso explica por qué aún vende. Y confirma que cuando tenga más equipo, va a escalar mucho más."
-
-*[Pausa breve.]*
-
-"Bucaramanga necesita moverse en los dos ejes. Pero el orden importa."
+"Sin equipo, no hay quién venda el catálogo. Sin catálogo, el equipo no tiene con qué convencer al cliente. El orden que propone el plan es el que los datos dictan."
 
 ---
 
 ## SLIDE 5 — Radar chart `[slide5_radar.html]`
-### ⏱ 4:05 – 5:00 | "Déficit en todos los ejes"
+### ⏱ 4:05 – 5:00 | "Los déficits son reales — y medibles"
 
 ---
 
-*[Cambiar al radar. Señalar el polígono azul grande de Bogotá.]*
+*[Cambiar al radar. Señalar el polígono azul grande.]*
 
-"Este es el radar de cinco dimensiones. Vendedores activos, variedad de productos, ventas totales, número de tickets, retención de personal."
+"Cinco dimensiones. Vendedores activos, variedad de productos, ventas totales, número de tickets, retención de personal."
 
-*[Señalar el polígono azul — Bogotá]*
+*[Señalar Bogotá — azul]*
 
-"El azul es Bogotá. Referencia máxima. Un polígono amplio, equilibrado."
+"El azul es Bogotá. La referencia máxima."
 
 *[Señalar el ámbar — promedio empresa]*
 
-"El ámbar es el promedio de la empresa. También saludable."
+"El ámbar es el promedio de la empresa. Saludable."
 
 *[Señalar el verde — Pereira]*
 
-"El verde es Pereira. Más pequeño, pero creciendo. Noten que su eje de retención todavía es bajo — están perdiendo vendedores también, pero más lentamente."
+"El verde es Pereira. Más pequeño que Bogotá, pero está creciendo en la dirección correcta."
 
-*[Señalar lentamente el polígono rojo — Bucaramanga. Tomar una pausa antes de hablar.]*
+*[Señalar el polígono rojo — Bucaramanga. Pausa antes de hablar.]*
 
-"Y el rojo..."
+"Y el rojo es Bucaramanga."
 
-*[Pausa de 2 segundos.]*
+*[PAUSA — 2 segundos.]*
 
 "*Es casi un punto.*"
 
-"No tiene una debilidad. Tiene **todas las debilidades al mismo tiempo.** Ventas en el piso. Pocos vendedores. Poca variedad. Pocos tickets. Y retención en **cero** — el único eje donde está en el origen absoluto."
+"Déficit en los cinco ejes al mismo tiempo. Eso podría sonar como argumento para rendirse."
 
-*[Pausa.]*
+*[Pausa. Cambiar el tono — firme.]*
 
-"Esto no es un problema puntual que se resuelve con un ajuste. Es un colapso sistémico. Y necesita una respuesta sistémica."
+"**No lo es.** Porque cuando la causa es sistémica, la solución también puede ser sistémica. Y tenemos un modelo que ya funcionó en esta misma empresa."
 
 ---
 
 ## SLIDE 6 — Dumbbell chart `[slide6_dumbbell.html]`
-### ⏱ 5:00 – 5:55 | "La inversión que nadie esperaba"
+### ⏱ 5:00 – 5:55 | "El modelo ya existe"
 
 ---
 
-*[Cambiar al dumbbell. Señalar la fila del año 2022 — la primera.]*
+*[Cambiar al dumbbell. Señalar la fila del año 2022.]*
 
-"Este gráfico compara directamente a Pereira y Bucaramanga, año por año."
+"Este es el argumento más poderoso para la reapertura."
 
-"Cada fila es un año. El punto rojo es Bucaramanga. El punto verde es Pereira. La línea que los conecta muestra la distancia entre los dos."
+"Dos sucursales. Misma empresa. Misma región geográfica. Condiciones comparables."
 
 *[Señalar la fila 2022 — el punto rojo está a la DERECHA del verde]*
 
-"Miren 2022. El punto rojo está **a la derecha** del verde."
+"Miren 2022. El punto rojo — Bucaramanga — **está a la derecha de Pereira.**"
 
-"En 2022, Bucaramanga — con 12.800 dólares — **superaba a Pereira**, que solo vendió 4.700."
+"Bucaramanga vendió $12,869. Pereira, $4,769. **Bucaramanga era la más fuerte de las dos.**"
 
-*[Pausa. Dejar que eso impacte.]*
+*[Pausa.]*
 
-"Bucaramanga era la más fuerte de las dos."
+*[Señalar la fila 2023]*
 
-*[Señalar la fila 2023 — los puntos se cruzan]*
+"2023: los puntos se cruzan. Pereira llega a $25,600. Bucaramanga cae a $17,000."
 
-"2023: los puntos se cruzan. Pereira llega a 25.600 dólares. Bucaramanga cae a 17.000. *Por primera vez, Pereira gana.*"
-
-*[Señalar la fila 2024 — la mayor distancia, el punto rojo en cero]*
+*[Señalar la fila 2024 — mayor distancia, punto rojo en cero]*
 
 "Y 2024."
 
-*[Pausa larga.]*
+*[PAUSA larga.]*
 
-"Pereira: **52.600 dólares.** Bucaramanga: **cero.** La brecha es la más grande posible."
+"Pereira: **$52,600.** Bucaramanga: **$0.**"
 
-*[Voz más firme.]*
+*[Voz firme, directa.]*
 
-"No es que Pereira sea excepcional. Bucaramanga era igual de capaz. Lo que cambió fue el equipo."
+"Pereira no tiene una ventaja estructural sobre Bucaramanga. Tiene un equipo que se mantuvo. Eso es todo."
+
+"Si Pereira multiplicó sus ventas **11 veces** en tres años — empezando desde abajo — Bucaramanga puede seguir el mismo camino."
+
+"El modelo de recuperación no es teórico. **Ya existe. Está en esta misma empresa.**"
 
 ---
 
-## SLIDE 7 — Plan de rescate `[slide7_matrix.html]`
-### ⏱ 5:55 – 7:00 | "Los tres déficits tienen solución"
+## SLIDE 7 — Plan de reapertura `[slide7_matrix.html]`
+### ⏱ 5:55 – 7:00 | "El plan concreto"
 
 ---
 
-*[Cambiar al slide de plan. Señalar el panel izquierdo — el bullet chart.]*
+*[Cambiar al slide del plan. Señalar el panel izquierdo — el bullet chart.]*
 
-"Todo lo que hemos visto hasta acá tiene una traducción concreta. El panel izquierdo muestra los **tres déficits medibles** de Bucaramanga — y la distancia exacta que hay que recorrer."
+"El panel izquierdo muestra los **tres déficits a cerrar** — con números exactos. No estimaciones."
 
-*[Señalar la primera fila — Vendedores activos. Señalar el diamante rojo en el extremo izquierdo.]*
+*[Señalar la primera fila — Vendedores activos]*
 
-"Vendedores activos: **2 hoy.** El diamante rojo es Bucaramanga. El punto verde es la meta: **6 vendedores.** La barra gris es el promedio de la empresa: casi 6. Llegar a la meta es llegar al estándar de la empresa, no pedir un milagro."
+"Vendedores activos: **2 hoy.** Meta: **6.** El promedio de la empresa es 5.9. Llegar a 6 no es ambicioso — es llegar al estándar."
 
 *[Señalar la segunda fila — Productos distintos]*
 
-"Productos distintos vendidos: **72 hoy.** Meta: **133** — exactamente el nivel de Pereira. No hay que llegar a Bogotá de golpe. Hay que llegar a donde ya llegó la sucursal de referencia."
+"Productos distintos: **72 hoy.** Meta: **133** — el nivel exacto de Pereira. No Bogotá. Pereira. La barra que ya fue cruzada en esta empresa."
 
 *[Señalar la tercera fila — Ventas mensuales]*
 
-"Y ventas mensuales: **cero hoy.** Meta: **2.135 dólares al mes** — el promedio mensual que Pereira ya alcanzó en 2023. Ese número no es una aspiración abstracta. Ya existió en esta misma empresa."
+"Y ventas mensuales: **$0 hoy.** Meta: **$2,135** — el promedio mensual que Pereira alcanzó en 2023. Ese número no es una proyección. Ya ocurrió."
 
-*[Señalar las flechas ámbar que conectan los puntos rojos con los verdes]*
+*[Señalar las flechas ámbar]*
 
-"Esas flechas son la distancia que hay que cerrar. Son grandes. Pero son medibles."
+"Estas flechas son la distancia. Son grandes. Pero están medidas."
 
 *[Pausa. Cambiar el foco al panel derecho — el Gantt.]*
 
-"El panel derecho muestra **cómo y cuándo.**"
+"El panel derecho es el cronograma."
 
-*[Señalar la Fase 1 — barra roja, meses 1-2]*
+*[Señalar Fase 1 — roja, meses 1-2]*
 
-"**Fase uno, meses uno y dos:** estabilizar el equipo. Contratar cuatro vendedores, programa de retención con bonos por permanencia, capacitación inmediata al equipo actual. Un solo objetivo: pasar de 2 a 6 vendedores activos."
+"**Fase uno, meses 1 y 2: estabilizar el equipo.** Contratar cuatro vendedores, bonos de retención para Carlos y Teresa, capacitación inmediata. Pasar de 2 a 6 vendedores activos."
 
-*[Señalar la Fase 2 — barra ámbar, meses 3-5]*
+*[Señalar Fase 2 — ámbar, meses 3-5]*
 
-"**Fase dos, meses tres a cinco:** con el equipo en pie, ampliamos el portafolio. Las cinco categorías que más venden en Bogotá y Cali llegan a Bucaramanga. Promociones agresivas para generar los primeros tickets reales del año. Objetivo: de 72 a 133 productos distintos."
+"**Fase dos, meses 3 a 5: ampliar el portafolio.** Con equipo en pie, traemos las cinco categorías que más venden en Bogotá y Cali. De 72 a 133 productos distintos."
 
-*[Señalar la Fase 3 — barra verde, meses 6-8]*
+*[Señalar Fase 3 — verde, meses 6-8]*
 
-"**Fase tres, meses seis a ocho:** escalar y replicar. Benchmark mensual contra Pereira — esa es la vara. Y cuando Bucaramanga llegue a los 2.135 dólares al mes, replicamos el modelo en Cartagena."
+"**Fase tres, meses 6 a 8: Bucaramanga reabierta.** Benchmark mensual contra Pereira. Cuando se alcanzan los $2,135 al mes, el modelo se replica en Cartagena."
 
 *[Pausa. Mirar al público.]*
 
-"Rafael tiene razón: sin portafolio no se atrae al cliente."
+"La pregunta no es si Bucaramanga puede recuperarse."
 
-"Ana tiene razón: sin vendedores, no hay quien convenza al cliente de comprar."
+*[Pausa.]*
 
-*[Pausa dramática — 2 segundos.]*
+"Pereira ya respondió esa pregunta."
 
-"**La diferencia es el orden.** Los datos de Bucaramanga lo confirman. Los datos de Pereira también."
+*[Voz firme. Sin apresurarse.]*
 
-*[Cierre — voz firme, sin apresurarse.]*
+"La pregunta es si vamos a tomar la decisión."
 
-"El diagnóstico está hecho. Los números son exactos. El modelo ya existe en esta empresa."
+*[Pausa final — 2 segundos. Dejar que el slide hable.]*
 
-*[Pausa final — 1 segundo.]*
-
-"**La sucursal puede recuperar el pulso. La decisión es ahora.**"
+"**Los datos dijeron que sí. El modelo existe. El plan está sobre la mesa.**"
 
 ---
 
@@ -334,13 +322,13 @@ Duración total: 7 minutos | Taller Final · Visualización · Mayo 2026
 | Slide | Gráfico | Tema | Inicio | Duración |
 |---|---|---|---|---|
 | 1 | ECG | La línea que se aplana | 0:00 | ~45 seg |
-| 2 | Bump chart | El ranking que nadie quiso ver | 0:45 | ~55 seg |
-| 3 | Timeline anotado | La escena del crimen | 1:40 | ~65 seg |
-| 4A | Waffle | El peso real de Bucaramanga | 2:45 | ~30 seg |
-| 4B | Quadrant | Un gráfico, dos hipótesis | 3:15 | ~50 seg |
-| 5 | Radar | Déficit en todos los ejes | 4:05 | ~55 seg |
-| 6 | Dumbbell | La inversión que nadie esperaba | 5:00 | ~55 seg |
-| 7 | Plan de rescate (bullet + Gantt) | Los tres déficits tienen solución | 5:55 | ~65 seg |
+| 2 | Bump chart | No siempre fue así | 0:45 | ~55 seg |
+| 3 | Timeline anotado | La causa es identificable | 1:40 | ~65 seg |
+| 4A | Waffle | El costo de no actuar | 2:45 | ~30 seg |
+| 4B | Quadrant | El mapa de la recuperación | 3:15 | ~50 seg |
+| 5 | Radar | Los déficits son reales — y medibles | 4:05 | ~55 seg |
+| 6 | Dumbbell | El modelo ya existe | 5:00 | ~55 seg |
+| 7 | Plan de reapertura | El plan concreto | 5:55 | ~65 seg |
 
 ---
 
@@ -352,29 +340,34 @@ Duración total: 7 minutos | Taller Final · Visualización · Mayo 2026
 - **Bucaramanga participa:** solo el 2.4% del total de la empresa — 3 de cada 100 dólares
 - **Última venta Bucaramanga:** diciembre 31 de 2023
 - **Vendedores que salieron:** Lourdes (oct 2022), Iván (abr 2023), Gustavo (jun 2023), Laura (mar 2024), Camila (mar 2024)
-- **Vendedores activos hoy:** Carlos García y Teresa Ruiz — solo 2 de 7
+- **Vendedores activos hoy:** Carlos García y Teresa Ruiz — 2 de 7, en nómina, $0 generados en 2024
 - **Rotación Bucaramanga:** 71% (5 de 7) vs empresa: 28% (17 de 60)
-- **Ticket promedio Bogotá:** $615 USD vs Bucaramanga: $325 USD
-- **Pereira crecimiento:** $4,769 (2022) → $25,617 (2023) → $52,590 (2024) — 11x en 3 años
 - **Pereira en 2022 era MENOR que Bucaramanga** ($4,769 vs $12,869) — el cruce ocurrió en 2023
-- **Productos distintos Bucaramanga:** 72 vs Bogotá: 205 vs promedio empresa: ~137
+- **Pereira crecimiento:** $4,769 (2022) → $25,617 (2023) → $52,590 (2024) — 11x en 3 años
+- **Productos distintos Bucaramanga:** 72 vs Pereira: 133 vs Bogotá: 205
 - **Retención de personal Bucaramanga:** 0.00 normalizado — la única sucursal sin retención
+- **Meta Fase 1:** 6 vendedores (promedio empresa: 5.9)
+- **Meta Fase 2:** 133 productos distintos (nivel Pereira)
+- **Meta Fase 3:** $2,135 USD/mes (promedio mensual de Pereira en 2023)
 
 ---
 
 ## Posibles preguntas del jurado
 
-**¿Por qué no simplemente cerrar Bucaramanga?**
-> Cerrar tiene costos operativos, contractuales y de reputación. Además, la causa del problema es identificable y corregible. Pereira era más débil que Bucaramanga en 2022 y multiplicó sus ventas 11 veces. El modelo de recuperación ya existe dentro de la misma empresa.
+**¿Por qué reabrir y no cerrar definitivamente?**
+> Cerrar tiene costos operativos, contractuales y de reputación. Pero sobre todo: la causa del problema es identificable y corregible. No fue el mercado, no fue el producto — fue la rotación de personal. Pereira era *más débil* que Bucaramanga en 2022 y multiplicó sus ventas 11 veces. El modelo de recuperación ya existe dentro de la misma empresa.
 
-**¿El problema de variedad no fue primero que el de vendedores?**
-> El timeline del slide 3 lo muestra con fechas: la primera salida (Lourdes, octubre 2022) precede a la caída sostenida de ventas. La baja variedad es consecuencia directa de tener menos vendedores ofreciendo el catálogo, no su causa.
+**¿Reabrir no es simplemente contratar gente y esperar?**
+> No. El plan tiene tres fases secuenciales con métricas concretas: primero el equipo (de 2 a 6 vendedores), luego el portafolio (de 72 a 133 productos), luego escalar contra un benchmark real. Cada fase tiene un KPI medible. Si en la Fase 1 no se logra retener al equipo, la Fase 2 no inicia.
 
-**Pereira también tiene solo 2 vendedores activos hoy, ¿no contradice el argumento?**
-> Pereira construyó su base de clientes y su momentum de ventas cuando tenía más equipo activo. Su inercia comercial sigue porque el daño fue menos profundo y más reciente. Bucaramanga perdió 5 de 7 vendedores antes de consolidar esa base. El punto del slide 6 es precisamente ese: Bucaramanga fue más fuerte que Pereira hasta que empezó a perder a su equipo.
+**¿El problema de variedad de productos no fue primero que el de vendedores?**
+> El timeline del slide 3 lo muestra con fechas: la primera salida (Lourdes, octubre 2022) precede a la caída sostenida de ventas. La baja variedad es consecuencia de tener menos vendedores ofreciendo el catálogo, no su causa independiente.
+
+**Pereira también tiene pocos vendedores activos hoy, ¿no contradice el argumento?**
+> Pereira construyó su base de clientes cuando tenía equipo completo. Su momentum sigue porque el daño fue menos profundo. Bucaramanga perdió 5 de 7 vendedores antes de consolidar esa base — por eso el punto de partida es más bajo. El plan refleja esa diferencia: empieza reconstruyendo el equipo antes que el catálogo.
+
+**¿Cuánto cuesta la Fase 1?**
+> Los datos disponibles no incluyen costos de nómina. Pero el punto de comparación es simple: Bucaramanga generó $0 en 2024. El costo de la inacción ya está siendo pagado, mes a mes, desde enero del año pasado. El costo de cuatro contrataciones con capacitación tiene que compararse contra eso.
 
 **¿Por qué Cartagena en la Fase 3 y no antes?**
-> Cartagena tiene ventas irregulares pero positivas — no está en emergencia. Concentrar los recursos donde el daño es total (Bucaramanga) es la decisión más eficiente. Cuando el modelo se valide ahí, se replica con menor riesgo.
-
-**¿Cuánto costaría la Fase 1?**
-> Los datos disponibles no incluyen costos de nómina. Pero la comparación es simple: Bucaramanga generó $0 en 2024. El costo de oportunidad de no actuar ya está siendo pagado, mes a mes, desde enero del año pasado.
+> Cartagena tiene ventas irregulares pero positivas — no está en emergencia. La Fase 3 replica el modelo *después de validarlo* en Bucaramanga. Esa secuencia reduce el riesgo: primero probamos que el modelo funciona donde el daño es total, luego lo escalamos con menor incertidumbre.

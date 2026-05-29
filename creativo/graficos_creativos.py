@@ -636,7 +636,7 @@ def slide7_matrix():
 
     fig = make_subplots(
         rows=1, cols=2,
-        subplot_titles=("Los tres déficits de Bucaramanga", "El plan de rescate · 3 fases"),
+        subplot_titles=("Los tres déficits a cerrar", "El plan de reapertura · 3 fases"),
         column_widths=[0.42, 0.58],
     )
 
@@ -766,9 +766,9 @@ def slide7_matrix():
         ),
         dict(
             nombre="FASE 3", inicio=5, fin=8, color=VERDE,
-            titulo="Escalar y replicar",
-            acciones=["Benchmark mensual vs Pereira", "Replicar modelo en Cartagena", "Revisión trimestral de viabilidad"],
-            kpi=f"Meta: ${per_23avg/1000:.1f}k USD/mes",
+            titulo="Bucaramanga reabierta",
+            acciones=["Benchmark mensual vs Pereira", "Replicar modelo en Cartagena", "Revisión trimestral de crecimiento"],
+            kpi=f"Meta: ${per_23avg/1000:.1f}k USD/mes · Replicar en Cartagena",
             y=1,
         ),
     ]
@@ -833,7 +833,7 @@ def slide7_matrix():
         legend=dict(x=0.01, y=0.01, font=dict(color=TEXTO, size=10),
                     bgcolor="rgba(248,249,250,0.9)", bordercolor=GRIS, borderwidth=1),
     )
-    base_layout(fig, "Plan de Rescate · Bucaramanga · Basado en datos reales")
+    base_layout(fig, "Plan de Reapertura · Bucaramanga · El modelo ya existe")
     save_slide(fig, f"{OUT}/slide7_matrix.html")
     print("✓ slide7_matrix.html")
 
@@ -850,7 +850,7 @@ def generar_index():
         ("slide4b_quadrant.html", "Quadrant: El veredicto sobre Rafael y Ana"),
         ("slide5_radar.html",     "Radar: Radiografía de 5 dimensiones"),
         ("slide6_dumbbell.html",  "Dumbbell: Pereira vs Bucaramanga"),
-        ("slide7_matrix.html",    "Matriz + Roadmap: La decisión es hoy"),
+        ("slide7_matrix.html",    "Reapertura: El plan en 3 fases"),
     ]
 
     nav_items = "\n".join(
@@ -868,7 +868,7 @@ def generar_index():
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WirallesTEC · La sucursal que perdió el pulso</title>
+  <title>WirallesTEC · Bucaramanga: el caso para reabrir</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
@@ -1018,7 +1018,7 @@ def generar_index():
   <header class="header">
     <span class="header-tag">WirallesTEC</span>
     <span class="header-sep">·</span>
-    <span class="header-title">La sucursal que <span>perdió el pulso</span></span>
+    <span class="header-title">Bucaramanga: <span>el caso para reabrir</span></span>
     <div class="header-spacer"></div>
     <div class="nav-arrows">
       <button onclick="loadPrev()" title="Slide anterior (←)">&#8592;</button>
