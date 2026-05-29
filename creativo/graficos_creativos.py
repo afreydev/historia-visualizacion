@@ -619,221 +619,117 @@ def slide7_matrix():
     vend_suc  = vend.groupby("SucursalID").agg(activos=("activo","sum")).reset_index()
     variedad  = (tk.groupby("Sucursal ID")["Producto ID"].nunique()
                  .reset_index().rename(columns={"Sucursal ID":"SucursalID","Producto ID":"n_prod"}))
-    vsuc_mes  = (tk.groupby("Sucursal ID")["Precio Total (USD)"].sum() / 36
-                 ).reset_index().rename(columns={"Sucursal ID":"SucursalID","Precio Total (USD)":"v_mes"})
 
     buca_row  = vend_suc[vend_suc["SucursalID"]==7].iloc[0]
     buca_prod = int(variedad[variedad["SucursalID"]==7]["n_prod"].iloc[0])
-    buca_vmes = float(vsuc_mes[vsuc_mes["SucursalID"]==7]["v_mes"].iloc[0])
-
     per_prod  = int(variedad[variedad["SucursalID"]==8]["n_prod"].iloc[0])
     per_23avg = tk[(tk["Sucursal ID"]==8) & (tk["year"]==2023)]["Precio Total (USD)"].sum() / 12
-    emp_vend  = float(vend_suc[vend_suc["SucursalID"]!=7]["activos"].mean())
-    emp_prod  = float(variedad[variedad["SucursalID"]!=7]["n_prod"].mean())
-    bog_vend  = int(vend_suc[vend_suc["SucursalID"]==1]["activos"].iloc[0])
-    bog_prod  = int(variedad[variedad["SucursalID"]==1]["n_prod"].iloc[0])
-    bog_vmes  = float(vsuc_mes[vsuc_mes["SucursalID"]==1]["v_mes"].iloc[0])
 
     fig = make_subplots(
         rows=1, cols=2,
-        subplot_titles=("Los tres déficits a cerrar", "El plan de reapertura · 3 fases"),
-        column_widths=[0.42, 0.58],
+        subplot_titles=("Déficits a cerrar", "Reapertura en 3 fases"),
+        column_widths=[0.38, 0.62],
+        horizontal_spacing=0.12,
     )
 
-    # ══ PANEL A — Bullet / gap chart ══════════════════════════════════════
+    # ══ PANEL A — Barras de progreso (gris = meta, rojo = hoy) ════════════
     metricas = [
-        dict(
-            label="Vendedores<br>activos",
-            actual=int(buca_row["activos"]),
-            meta=6,
-            empresa=emp_vend,
-            maximo=bog_vend,
-            unidad="",
-            y=3,
-        ),
-        dict(
-            label="Productos<br>distintos vendidos",
-            actual=buca_prod,
-            meta=per_prod,
-            empresa=emp_prod,
-            maximo=bog_prod,
-            unidad="",
-            y=2,
-        ),
-        dict(
-            label="Ventas promedio<br>mensuales (USD)",
-            actual=0,
-            meta=round(per_23avg),
-            empresa=round(bog_vmes * 0.35),
-            maximo=round(bog_vmes),
-            unidad="$",
-            y=1,
-        ),
+        dict(actual=int(buca_row["activos"]), meta=6,        unidad="",  y=3),
+        dict(actual=buca_prod,                meta=per_prod,  unidad="",  y=2),
+        dict(actual=0,                        meta=round(per_23avg), unidad="$", y=1),
+    ]
+    tick_labels = [
+        f"Ventas / mes<br><b style='color:{ROJO}'>$0</b>  →  <b style='color:{VERDE}'>${round(per_23avg):,}</b>",
+        f"Productos<br><b style='color:{ROJO}'>{buca_prod}</b>  →  <b style='color:{VERDE}'>{per_prod}</b>",
+        f"Vendedores<br><b style='color:{ROJO}'>{int(buca_row['activos'])}</b>  →  <b style='color:{VERDE}'>6</b>",
     ]
 
     for m in metricas:
-        norm = lambda v: v / m["maximo"]
+        pct = m["actual"] / m["meta"] if m["actual"] > 0 else 0.015
 
+        # Barra gris = meta completa
         fig.add_trace(go.Bar(
-            x=[1.0], y=[m["y"]],
-            orientation="h",
-            marker=dict(color=GRIS, opacity=0.15),
-            showlegend=False, hoverinfo="skip",
-            width=0.35,
+            x=[1.0], y=[m["y"]], orientation="h", width=0.5,
+            marker=dict(color="#E8ECEF"), showlegend=False, hoverinfo="skip",
         ), row=1, col=1)
 
+        # Barra roja = progreso actual
         fig.add_trace(go.Bar(
-            x=[norm(m["empresa"])], y=[m["y"]],
-            orientation="h",
-            marker=dict(color=GRIS, opacity=0.4),
-            showlegend=False,
-            width=0.35,
-            hovertemplate=f"Promedio empresa: {m['unidad']}{m['empresa']:,.0f}<extra></extra>",
+            x=[pct], y=[m["y"]], orientation="h", width=0.5,
+            marker=dict(color=ROJO, opacity=0.75), showlegend=False,
+            hovertemplate=f"Hoy: {m['unidad']}{m['actual']:,}  |  Meta: {m['unidad']}{m['meta']:,}<extra></extra>",
         ), row=1, col=1)
 
-        fig.add_trace(go.Scatter(
-            x=[norm(m["actual"]) if m["actual"] > 0 else 0.012],
-            y=[m["y"]],
-            mode="markers",
-            marker=dict(size=16, color=ROJO, symbol="diamond",
-                        line=dict(width=2, color="#FFFFFF")),
-            showlegend=False,
-            hovertemplate=f"Bucaramanga hoy: {m['unidad']}{m['actual']:,}<extra></extra>",
-        ), row=1, col=1)
-
-        fig.add_trace(go.Scatter(
-            x=[norm(m["meta"])], y=[m["y"]],
-            mode="markers",
-            marker=dict(size=16, color=VERDE, symbol="circle",
-                        line=dict(width=2, color="#FFFFFF")),
-            showlegend=False,
-            hovertemplate=f"Meta del plan: {m['unidad']}{m['meta']:,}<extra></extra>",
-        ), row=1, col=1)
-
-        fig.add_annotation(
-            x=norm(m["meta"]), y=m["y"] + 0.28,
-            ax=norm(m["actual"]) if m["actual"] > 0 else 0.012,
-            ay=m["y"] + 0.28,
-            xref="x", yref="y", axref="x", ayref="y",
-            showarrow=True, arrowhead=2, arrowwidth=2,
-            arrowcolor=AMBAR, text="",
+        # Línea vertical verde en la meta
+        fig.add_shape(
+            type="line",
+            x0=1.0, x1=1.0, y0=m["y"] - 0.30, y1=m["y"] + 0.30,
+            line=dict(color=VERDE, width=3),
+            row=1, col=1,
         )
-
-        fig.add_annotation(
-            x=norm(m["actual"]) if m["actual"] > 0 else 0.012,
-            y=m["y"] - 0.27,
-            text=f"<b style='color:{ROJO}'>HOY: {m['unidad']}{m['actual']:,}</b>",
-            font=dict(size=10), showarrow=False, xref="x", yref="y",
-        )
-        fig.add_annotation(
-            x=norm(m["meta"]), y=m["y"] - 0.27,
-            text=f"<b style='color:{VERDE}'>META: {m['unidad']}{m['meta']:,}</b>",
-            font=dict(size=10), showarrow=False, xref="x", yref="y",
-        )
-
-    for sym, color, txt in [("diamond", ROJO,  "Bucaramanga hoy"),
-                              ("circle",  VERDE, "Meta del plan"),
-                              ("square",  GRIS,  "Promedio empresa")]:
-        fig.add_trace(go.Scatter(
-            x=[None], y=[None], mode="markers",
-            marker=dict(size=10, color=color, symbol=sym),
-            name=txt, showlegend=True,
-        ), row=1, col=1)
 
     fig.update_xaxes(showticklabels=False, showgrid=False, range=[0, 1.08], row=1, col=1)
     fig.update_yaxes(
         tickvals=[1, 2, 3],
-        ticktext=["Ventas/mes", "Productos<br>distintos", "Vendedores<br>activos"],
+        ticktext=tick_labels,
         tickfont=dict(color=TEXTO, size=11),
-        showgrid=False, row=1, col=1,
+        showgrid=False, range=[0.4, 3.6], row=1, col=1,
     )
 
-    # ══ PANEL B — Gantt de 3 fases ════════════════════════════════════════
+    # ══ PANEL B — Gantt simplificado ══════════════════════════════════════
     fases = [
-        dict(
-            nombre="FASE 1", inicio=0, fin=2, color=ROJO,
-            titulo="Estabilizar el equipo",
-            acciones=["Contratar 4 vendedores", "Bonos de retención", "Capacitación intensiva"],
-            kpi=f"2 → 6 vendedores activos",
-            y=3,
-        ),
-        dict(
-            nombre="FASE 2", inicio=2, fin=5, color=AMBAR,
-            titulo="Ampliar el portafolio",
-            acciones=["Top 5 categorías de Bogotá/Cali", "Campañas promocionales", "KPI semanal de tickets"],
-            kpi=f"72 → {per_prod} productos distintos",
-            y=2,
-        ),
-        dict(
-            nombre="FASE 3", inicio=5, fin=8, color=VERDE,
-            titulo="Bucaramanga reabierta",
-            acciones=["Benchmark mensual vs Pereira", "Replicar modelo en Cartagena", "Revisión trimestral de crecimiento"],
-            kpi=f"Meta: ${per_23avg/1000:.1f}k USD/mes · Replicar en Cartagena",
-            y=1,
-        ),
+        dict(nombre="FASE 1", inicio=0, fin=2, color=ROJO,
+             titulo="Estabilizar el equipo",   kpi="2 → 6 vendedores", y=3),
+        dict(nombre="FASE 2", inicio=2, fin=5, color=AMBAR,
+             titulo="Ampliar el portafolio",   kpi=f"72 → {per_prod} productos", y=2),
+        dict(nombre="FASE 3", inicio=5, fin=8, color=VERDE,
+             titulo="Reabierta",               kpi=f"Meta: ${per_23avg/1000:.1f}k USD/mes", y=1),
     ]
 
     for f in fases:
+        mid = f["inicio"] + (f["fin"] - f["inicio"]) / 2
+
         fig.add_trace(go.Bar(
-            x=[f["fin"] - f["inicio"]],
-            y=[f["y"]],
-            base=f["inicio"],
-            orientation="h",
-            marker=dict(color=f["color"], opacity=0.20,
+            x=[f["fin"] - f["inicio"]], y=[f["y"]], base=f["inicio"],
+            orientation="h", width=0.65,
+            marker=dict(color=f["color"], opacity=0.15,
                         line=dict(color=f["color"], width=2)),
             showlegend=False,
-            width=0.55,
-            hovertemplate=f"<b>{f['nombre']}</b><br>Mes {f['inicio']+1} – {f['fin']}<br>{f['titulo']}<extra></extra>",
+            hovertemplate=f"<b>{f['nombre']}</b> · {f['titulo']}<extra></extra>",
         ), row=1, col=2)
 
+        # Nombre + título en dos líneas (evita overflow horizontal)
         fig.add_annotation(
-            x=f["inicio"] + (f["fin"] - f["inicio"]) / 2,
-            y=f["y"] + 0.38,
-            text=f"<b style='color:{f['color']}'>{f['nombre']}</b>  ·  {f['titulo']}",
+            x=mid, y=f["y"] + 0.08,
+            text=f"<b style='color:{f['color']}'>{f['nombre']}</b><br>"
+                 f"<span style='font-size:10px'>{f['titulo']}</span>",
             font=dict(size=11, color=TEXTO), showarrow=False,
-            xref="x2", yref="y2",
+            xref="x2", yref="y2", align="center",
         )
-
-        texto_acc = "<br>".join(f"• {a}" for a in f["acciones"])
+        # KPI debajo
         fig.add_annotation(
-            x=f["inicio"] + (f["fin"] - f["inicio"]) / 2,
-            y=f["y"],
-            text=texto_acc,
-            font=dict(size=9.5, color=TEXTO), showarrow=False,
-            xref="x2", yref="y2",
-            align="left",
-        )
-
-        fig.add_annotation(
-            x=f["inicio"] + (f["fin"] - f["inicio"]) / 2,
-            y=f["y"] - 0.38,
-            text=f"<b style='color:{f['color']}'>▶ {f['kpi']}</b>",
+            x=mid, y=f["y"] - 0.26,
+            text=f"<b style='color:{f['color']}'>{f['kpi']}</b>",
             font=dict(size=10), showarrow=False,
             xref="x2", yref="y2",
         )
 
     fig.update_xaxes(
-        tickvals=list(range(9)),
-        ticktext=[f"Mes {i}" if i > 0 else "Hoy" for i in range(9)],
+        tickvals=[0, 2, 5, 8],
+        ticktext=["Hoy", "Mes 2", "Mes 5", "Mes 8"],
         tickfont=dict(color=GRIS, size=10),
-        showgrid=True, range=[-0.3, 8.5],
-        row=1, col=2,
+        showgrid=True, range=[-0.3, 8.5], row=1, col=2,
     )
     fig.update_yaxes(
         tickvals=[1, 2, 3],
         ticktext=["Fase 3", "Fase 2", "Fase 1"],
         tickfont=dict(color=GRIS, size=11),
-        showgrid=False, range=[0.4, 3.9],
-        row=1, col=2,
+        showgrid=False, range=[0.4, 3.6], row=1, col=2,
     )
 
-    fig.update_layout(
-        barmode="overlay",
-        height=490,
-        legend=dict(x=0.01, y=0.01, font=dict(color=TEXTO, size=10),
-                    bgcolor="rgba(248,249,250,0.9)", bordercolor=GRIS, borderwidth=1),
-    )
+    fig.update_layout(barmode="overlay", height=440, showlegend=False)
     base_layout(fig, "Plan de Reapertura · Bucaramanga · El modelo ya existe")
+    fig.update_layout(margin=dict(l=140, r=60, t=70, b=60))
     save_slide(fig, f"{OUT}/slide7_matrix.html")
     print("✓ slide7_matrix.html")
 
@@ -843,14 +739,14 @@ def slide7_matrix():
 # ═══════════════════════════════════════════════════════════════════════════════
 def generar_index():
     slides = [
-        ("slide1_ecg.html",       "ECG: La línea que se aplana"),
-        ("slide2_bump.html",      "Bump chart: El ranking que cuenta la historia"),
-        ("slide3_timeline.html",  "Timeline anotado: La escena del crimen"),
-        ("slide4a_waffle.html",   "Waffle: El peso real de Bucaramanga"),
-        ("slide4b_quadrant.html", "Quadrant: El veredicto sobre Rafael y Ana"),
-        ("slide5_radar.html",     "Radar: Radiografía de 5 dimensiones"),
-        ("slide6_dumbbell.html",  "Dumbbell: Pereira vs Bucaramanga"),
-        ("slide7_matrix.html",    "Reapertura: El plan en 3 fases"),
+        ("slide1_ecg.html",       "La línea que se aplana"),
+        ("slide2_bump.html",      "El ranking que cuenta la historia"),
+        ("slide3_timeline.html",  "La escena del crimen"),
+        ("slide4a_waffle.html",   "El peso real de Bucaramanga"),
+        ("slide4b_quadrant.html", "El veredicto sobre Rafael y Ana"),
+        ("slide5_radar.html",     "Radiografía de 5 dimensiones"),
+        ("slide6_dumbbell.html",  "Pereira vs Bucaramanga"),
+        ("slide7_matrix.html",    "El plan en 3 fases"),
     ]
 
     nav_items = "\n".join(
