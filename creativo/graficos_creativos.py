@@ -632,54 +632,64 @@ def slide7_matrix():
         horizontal_spacing=0.12,
     )
 
-    # ══ PANEL A — Barras de progreso (gris = meta, rojo = hoy) ════════════
-    metricas = [
-        dict(actual=int(buca_row["activos"]), meta=6,        unidad="",  y=3),
-        dict(actual=buca_prod,                meta=per_prod,  unidad="",  y=2),
-        dict(actual=0,                        meta=round(per_23avg), unidad="$", y=1),
+    # ══ PANEL A — Scorecard tipográfico (hoy → meta) ══════════════════════
+    # Scatter invisible para anclar el espacio de coordenadas
+    fig.add_trace(go.Scatter(
+        x=[0.5, 0.5, 0.5], y=[1, 2, 3],
+        mode="markers", marker=dict(opacity=0),
+        showlegend=False, hoverinfo="skip",
+    ), row=1, col=1)
+
+    kpis = [
+        dict(label="Ventas / mes", actual="$0",          meta=f"${round(per_23avg/1000, 1):.0f}k USD", y=1),
+        dict(label="Productos",    actual=str(buca_prod), meta=str(per_prod),                           y=2),
+        dict(label="Vendedores",   actual=str(int(buca_row["activos"])), meta="6",                      y=3),
     ]
-    tick_labels = [
-        f"Ventas / mes<br><b style='color:{ROJO}'>$0</b>  →  <b style='color:{VERDE}'>${round(per_23avg):,}</b>",
-        f"Productos<br><b style='color:{ROJO}'>{buca_prod}</b>  →  <b style='color:{VERDE}'>{per_prod}</b>",
-        f"Vendedores<br><b style='color:{ROJO}'>{int(buca_row['activos'])}</b>  →  <b style='color:{VERDE}'>6</b>",
-    ]
 
-    for m in metricas:
-        pct = m["actual"] / m["meta"] if m["actual"] > 0 else 0.015
-
-        # Barra gris = meta completa
-        fig.add_trace(go.Bar(
-            x=[1.0], y=[m["y"]], orientation="h", width=0.5,
-            marker=dict(color="#E8ECEF"), showlegend=False, hoverinfo="skip",
-        ), row=1, col=1)
-
-        # Barra roja = progreso actual
-        fig.add_trace(go.Bar(
-            x=[pct], y=[m["y"]], orientation="h", width=0.5,
-            marker=dict(color=ROJO, opacity=0.75), showlegend=False,
-            hovertemplate=f"Hoy: {m['unidad']}{m['actual']:,}  |  Meta: {m['unidad']}{m['meta']:,}<extra></extra>",
-        ), row=1, col=1)
-
-        # Línea vertical verde en la meta
+    for k in kpis:
+        # Línea divisora sutil
         fig.add_shape(
             type="line",
-            x0=1.0, x1=1.0, y0=m["y"] - 0.30, y1=m["y"] + 0.30,
-            line=dict(color=VERDE, width=3),
-            row=1, col=1,
+            x0=0.05, x1=0.95, y0=k["y"] - 0.46, y1=k["y"] - 0.46,
+            line=dict(color="#E8ECEF", width=1),
+            xref="x", yref="y",
+        )
+        # Etiqueta de métrica
+        fig.add_annotation(
+            x=0.5, y=k["y"] + 0.32,
+            text=f"<b>{k['label']}</b>",
+            font=dict(size=10, color=GRIS), showarrow=False,
+            xref="x", yref="y", align="center",
+        )
+        # Valor actual (grande, rojo)
+        fig.add_annotation(
+            x=0.18, y=k["y"],
+            text=f"<b>{k['actual']}</b>",
+            font=dict(size=20, color=ROJO), showarrow=False,
+            xref="x", yref="y", align="center",
+        )
+        # Flecha
+        fig.add_annotation(
+            x=0.5, y=k["y"],
+            text="→",
+            font=dict(size=16, color=GRIS), showarrow=False,
+            xref="x", yref="y", align="center",
+        )
+        # Valor meta (grande, verde)
+        fig.add_annotation(
+            x=0.82, y=k["y"],
+            text=f"<b>{k['meta']}</b>",
+            font=dict(size=20, color=VERDE), showarrow=False,
+            xref="x", yref="y", align="center",
         )
 
-    fig.update_xaxes(showticklabels=False, showgrid=False, range=[0, 1.08], row=1, col=1)
-    fig.update_yaxes(
-        tickvals=[1, 2, 3],
-        ticktext=tick_labels,
-        tickfont=dict(color=TEXTO, size=11),
-        showgrid=False, range=[0.4, 3.6], row=1, col=1,
-    )
+    fig.update_xaxes(showticklabels=False, showgrid=False, range=[0, 1], row=1, col=1)
+    fig.update_yaxes(showticklabels=False, showgrid=False, range=[0.4, 3.6], row=1, col=1)
 
     # ══ PANEL B — Gantt simplificado ══════════════════════════════════════
     fases = [
         dict(nombre="FASE 1", inicio=0, fin=2, color=ROJO,
-             titulo="Estabilizar el equipo",   kpi="2 → 6 vendedores", y=3),
+             titulo="Estabilizar<br>el equipo", kpi="2 → 6 vendedores", y=3),
         dict(nombre="FASE 2", inicio=2, fin=5, color=AMBAR,
              titulo="Ampliar el portafolio",   kpi=f"72 → {per_prod} productos", y=2),
         dict(nombre="FASE 3", inicio=5, fin=8, color=VERDE,
@@ -727,9 +737,9 @@ def slide7_matrix():
         showgrid=False, range=[0.4, 3.6], row=1, col=2,
     )
 
-    fig.update_layout(barmode="overlay", height=440, showlegend=False)
+    fig.update_layout(barmode="overlay", height=460, showlegend=False)
     base_layout(fig, "Plan de Reapertura · Bucaramanga · El modelo ya existe")
-    fig.update_layout(margin=dict(l=140, r=60, t=70, b=60))
+    fig.update_layout(margin=dict(l=40, r=60, t=70, b=60))
     save_slide(fig, f"{OUT}/slide7_matrix.html")
     print("✓ slide7_matrix.html")
 
