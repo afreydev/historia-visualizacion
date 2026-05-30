@@ -1,5 +1,5 @@
 # Guion de Presentación Creativa – WirallesTEC
-**"Bucaramanga: el caso para reabrir"**
+**"Rescatando a Bucaramanga"**
 Duración total: 7 minutos | Taller Final · Visualización · Mayo 2026
 
 ---

@@ -1,5 +1,5 @@
 """
-WirallesTEC – Gráficos creativos: "La sucursal que perdió el pulso"
+WirallesTEC – Gráficos creativos: "Rescatando a Bucaramanga"
 Estética: diagnóstico forense de datos · fondo blanco · colores claros
 """
 
@@ -816,7 +816,7 @@ def generar_index():
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WirallesTEC · Bucaramanga: el caso para reabrir</title>
+  <title>WirallesTEC · Rescatando a Bucaramanga</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
@@ -966,7 +966,7 @@ def generar_index():
   <header class="header">
     <span class="header-tag">WirallesTEC</span>
     <span class="header-sep">·</span>
-    <span class="header-title">Bucaramanga: <span>el caso para reabrir</span></span>
+    <span class="header-title">Rescatando a <span>Bucaramanga</span></span>
     <div class="header-spacer"></div>
     <div class="nav-arrows">
       <button onclick="loadPrev()" title="Slide anterior (←)">&#8592;</button>
