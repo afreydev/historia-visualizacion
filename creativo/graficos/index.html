@@ -37,11 +37,24 @@
     }
     .header-sep { color: #E8ECEF; }
     .header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .header-title .main {
       font-size: 18px;
       font-weight: 700;
       color: #1A1A2E;
+      line-height: 1;
     }
-    .header-title span { color: #C0392B; }
+    .header-title .main span { color: #C0392B; }
+    .header-title .sub {
+      font-size: 11px;
+      font-weight: 400;
+      color: #95A5A6;
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
     .header-spacer { flex: 1; }
     .nav-arrows { display: flex; gap: 6px; }
     .nav-arrows button {
@@ -153,7 +166,10 @@
   <header class="header">
     <span class="header-tag">WirallesTEC</span>
     <span class="header-sep">·</span>
-    <span class="header-title">Rescatando a <span>Bucaramanga</span></span>
+    <div class="header-title">
+      <span class="main">Rescatando a <span>Bucaramanga</span></span>
+      <span class="sub">Una historia contada por los datos</span>
+    </div>
     <div class="header-spacer"></div>
     <div class="nav-arrows">
       <button onclick="loadPrev()" title="Slide anterior (←)">&#8592;</button>
