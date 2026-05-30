@@ -504,13 +504,14 @@ def slide5_radar():
             marker=dict(size=6 if ancho > 2 else 4, color=color),
             fill=fillmode,
             fillcolor=f"rgba({int(color[1:3],16)},{int(color[3:5],16)},{int(color[5:],16)},{opacity*0.35})",
-            hovertemplate=f"<b>{ciudad}</b><br>%{{theta}}: %{{r:.2f}}<extra></extra>",
+            hovertemplate=f"<b>{ciudad}</b><br>%{{theta}}: %{{r:.0%}}<extra></extra>",
         ))
 
     fig.update_layout(
         polar=dict(
             bgcolor=BG_CARD,
             radialaxis=dict(visible=True, range=[0,1], tickvals=[0.25,0.5,0.75,1.0],
+                            ticktext=["25%","50%","75%","100%"],
                             tickfont=dict(color=GRIS, size=9), gridcolor="#E8ECEF",
                             linecolor=GRIS),
             angularaxis=dict(tickfont=dict(color=TEXTO, size=11), gridcolor="#E8ECEF",
