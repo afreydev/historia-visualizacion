@@ -187,11 +187,13 @@ Duración total: 7 minutos | Taller Final · Visualización · Mayo 2026
 
 *[Cambiar al radar. Señalar el polígono azul grande.]*
 
-"Cinco dimensiones. Vendedores activos, variedad de productos, ventas totales, número de tickets, retención de personal."
+"Cinco dimensiones. Vendedores activos, variedad de productos, ventas totales, número de tickets, retención de personal. Cada eje va de 0% a 100% — donde 100% es la sucursal que más alto llega en esa dimensión."
 
 *[Señalar Bogotá — azul]*
 
-"El azul es Bogotá. La referencia máxima."
+"El azul es Bogotá. Lidera en cuatro de los cinco ejes."
+
+*[Si alguien pregunta por qué Bogotá no llega al 100% en retención — ver posibles preguntas al final.]*
 
 *[Señalar el ámbar — promedio empresa]*
 
@@ -273,11 +275,11 @@ Duración total: 7 minutos | Taller Final · Visualización · Mayo 2026
 
 *[Señalar la segunda fila — Productos distintos]*
 
-"Productos distintos: **72 hoy.** Meta: **133** — el nivel exacto de Pereira. No Bogotá. Pereira. La barra que ya fue cruzada en esta empresa."
+"Productos distintos: **72 hoy.** Meta a corto plazo: **133** — el nivel de Pereira. Horizonte de empresa: **145** — el promedio real del resto de sucursales. La barra inmediata ya fue cruzada dentro de esta misma empresa."
 
 *[Señalar la tercera fila — Ventas mensuales]*
 
-"Y ventas mensuales: **$0 hoy.** Meta: **$2,135** — el promedio mensual que Pereira alcanzó en 2023. Ese número no es una proyección. Ya ocurrió."
+"Y ventas mensuales: **$0 hoy.** Meta a corto plazo: **$2,135** — lo que Pereira promedió en 2023. Horizonte de empresa: **$4,455** — el promedio del resto de sucursales. Ambos números son reales. Ninguno es proyección."
 
 *[Señalar las flechas ámbar]*
 
@@ -345,10 +347,10 @@ Duración total: 7 minutos | Taller Final · Visualización · Mayo 2026
 - **Pereira en 2022 era MENOR que Bucaramanga** ($4,769 vs $12,869) — el cruce ocurrió en 2023
 - **Pereira crecimiento:** $4,769 (2022) → $25,617 (2023) → $52,590 (2024) — 11x en 3 años
 - **Productos distintos Bucaramanga:** 72 vs Pereira: 133 vs Bogotá: 205
-- **Retención de personal Bucaramanga:** 0.00 normalizado — la única sucursal sin retención
-- **Meta Fase 1:** 6 vendedores (promedio empresa: 5.9)
-- **Meta Fase 2:** 133 productos distintos (nivel Pereira)
-- **Meta Fase 3:** $2,135 USD/mes (promedio mensual de Pereira en 2023)
+- **Retención de personal Bucaramanga:** 28.5% (2 activos de 7) — la más baja de la empresa. El 100% del radar lo ancla Barranquilla, que no ha perdido ningún vendedor (4 de 4). Por eso Bogotá aparece en 86%, no en 100%.
+- **Meta Fase 1:** 6 vendedores — meta corto plazo; promedio empresa es 5.9
+- **Meta Fase 2:** 133 productos distintos (nivel Pereira); promedio empresa: 145
+- **Meta Fase 3:** $2,135 USD/mes (Pereira 2023); promedio empresa: $4,455 USD/mes
 
 ---
 
@@ -368,6 +370,9 @@ Duración total: 7 minutos | Taller Final · Visualización · Mayo 2026
 
 **¿Cuánto cuesta la Fase 1?**
 > Los datos disponibles no incluyen costos de nómina. Pero el punto de comparación es simple: Bucaramanga generó $0 en 2024. El costo de la inacción ya está siendo pagado, mes a mes, desde enero del año pasado. El costo de cuatro contrataciones con capacitación tiene que compararse contra eso.
+
+**¿Por qué Bogotá no llega al 100% en el eje de retención del radar?**
+> El 100% lo ancla Barranquilla, que tiene 4 de 4 vendedores activos — ninguna salida en tres años. Bogotá tiene 12 activos de 14 (perdió 2), lo que da una retención del 86% normalizado. El radar muestra posición relativa dentro de la empresa, no una escala absoluta.
 
 **¿Por qué Cartagena en la Fase 3 y no antes?**
 > Cartagena tiene ventas irregulares pero positivas — no está en emergencia. La Fase 3 replica el modelo *después de validarlo* en Bucaramanga. Esa secuencia reduce el riesgo: primero probamos que el modelo funciona donde el daño es total, luego lo escalamos con menor incertidumbre.

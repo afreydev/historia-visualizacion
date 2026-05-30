@@ -626,15 +626,19 @@ def slide7_matrix():
     per_prod  = int(variedad[variedad["SucursalID"]==8]["n_prod"].iloc[0])
     per_23avg = tk[(tk["Sucursal ID"]==8) & (tk["year"]==2023)]["Precio Total (USD)"].sum() / 12
 
+    sin_buca  = vend_suc[vend_suc["SucursalID"] != 7]
+    avg_act   = round(sin_buca["activos"].mean())
+    avg_prod  = int(variedad[variedad["SucursalID"] != 7]["n_prod"].mean().round())
+    avg_mes   = tk[(tk["Sucursal ID"] != 7) & (tk["year"] == 2023)].groupby("Sucursal ID")["Precio Total (USD)"].sum().mean() / 12
+
     fig = make_subplots(
         rows=1, cols=2,
         subplot_titles=("Déficits a cerrar", "Reapertura en 3 fases"),
-        column_widths=[0.38, 0.62],
-        horizontal_spacing=0.12,
+        column_widths=[0.42, 0.58],
+        horizontal_spacing=0.10,
     )
 
-    # ══ PANEL A — Scorecard tipográfico (hoy → meta) ══════════════════════
-    # Scatter invisible para anclar el espacio de coordenadas
+    # ══ PANEL A — Scorecard: Hoy → Meta Pereira → Promedio empresa ══════════
     fig.add_trace(go.Scatter(
         x=[0.5, 0.5, 0.5], y=[1, 2, 3],
         mode="markers", marker=dict(opacity=0),
@@ -642,50 +646,87 @@ def slide7_matrix():
     ), row=1, col=1)
 
     kpis = [
-        dict(label="Ventas / mes", actual="$0",          meta=f"${round(per_23avg/1000, 1):.0f}k USD", y=1),
-        dict(label="Productos",    actual=str(buca_prod), meta=str(per_prod),                           y=2),
-        dict(label="Vendedores",   actual=str(int(buca_row["activos"])), meta="6",                      y=3),
+        dict(label="Ventas / mes",
+             actual="$0",
+             meta_per=f"${per_23avg/1000:.1f}k",
+             meta_avg=f"${avg_mes/1000:.1f}k",
+             y=1),
+        dict(label="Productos",
+             actual=str(buca_prod),
+             meta_per=str(per_prod),
+             meta_avg=str(avg_prod),
+             y=2),
+        dict(label="Vendedores",
+             actual=str(int(buca_row["activos"])),
+             meta_per="6",
+             meta_avg=str(avg_act),
+             y=3),
     ]
 
+    # Encabezados de columna (solo una vez, arriba del todo)
+    for x, txt, color in [
+        (0.08, "Hoy",     ROJO),
+        (0.50, "Pereira", VERDE),
+        (0.88, "Empresa", AMBAR),
+    ]:
+        fig.add_annotation(
+            x=x, y=3.55,
+            text=f"<i>{txt}</i>",
+            font=dict(size=9, color=color), showarrow=False,
+            xref="x", yref="y", align="center",
+        )
+
     for k in kpis:
-        # Línea divisora sutil
         fig.add_shape(
             type="line",
-            x0=0.05, x1=0.95, y0=k["y"] - 0.46, y1=k["y"] - 0.46,
+            x0=0.02, x1=0.98, y0=k["y"] - 0.46, y1=k["y"] - 0.46,
             line=dict(color="#E8ECEF", width=1),
             xref="x", yref="y",
         )
-        # Etiqueta de métrica
         fig.add_annotation(
-            x=0.5, y=k["y"] + 0.32,
+            x=0.5, y=k["y"] + 0.30,
             text=f"<b>{k['label']}</b>",
             font=dict(size=10, color=GRIS), showarrow=False,
             xref="x", yref="y", align="center",
         )
-        # Valor actual (grande, rojo)
+        # Valor actual
         fig.add_annotation(
-            x=0.18, y=k["y"],
+            x=0.08, y=k["y"],
             text=f"<b>{k['actual']}</b>",
-            font=dict(size=20, color=ROJO), showarrow=False,
+            font=dict(size=18, color=ROJO), showarrow=False,
             xref="x", yref="y", align="center",
         )
-        # Flecha
+        # Flecha 1
         fig.add_annotation(
-            x=0.5, y=k["y"],
+            x=0.30, y=k["y"],
             text="→",
-            font=dict(size=16, color=GRIS), showarrow=False,
+            font=dict(size=14, color=GRIS), showarrow=False,
             xref="x", yref="y", align="center",
         )
-        # Valor meta (grande, verde)
+        # Meta Pereira
         fig.add_annotation(
-            x=0.82, y=k["y"],
-            text=f"<b>{k['meta']}</b>",
-            font=dict(size=20, color=VERDE), showarrow=False,
+            x=0.50, y=k["y"],
+            text=f"<b>{k['meta_per']}</b>",
+            font=dict(size=18, color=VERDE), showarrow=False,
+            xref="x", yref="y", align="center",
+        )
+        # Flecha 2
+        fig.add_annotation(
+            x=0.70, y=k["y"],
+            text="→",
+            font=dict(size=14, color=GRIS), showarrow=False,
+            xref="x", yref="y", align="center",
+        )
+        # Meta promedio empresa
+        fig.add_annotation(
+            x=0.88, y=k["y"],
+            text=f"<b>{k['meta_avg']}</b>",
+            font=dict(size=18, color=AMBAR), showarrow=False,
             xref="x", yref="y", align="center",
         )
 
     fig.update_xaxes(showticklabels=False, showgrid=False, range=[0, 1], row=1, col=1)
-    fig.update_yaxes(showticklabels=False, showgrid=False, range=[0.4, 3.6], row=1, col=1)
+    fig.update_yaxes(showticklabels=False, showgrid=False, range=[0.4, 3.7], row=1, col=1)
 
     # ══ PANEL B — Gantt simplificado ══════════════════════════════════════
     fases = [
