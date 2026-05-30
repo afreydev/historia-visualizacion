@@ -638,36 +638,36 @@ def slide7_matrix():
         horizontal_spacing=0.10,
     )
 
-    # ══ PANEL A — Scorecard: Hoy → Meta Pereira → Promedio empresa ══════════
+    # ══ PANEL A — Scorecard: Hoy → Meta ══════════════════════════════════════
     fig.add_trace(go.Scatter(
         x=[0.5, 0.5, 0.5], y=[1, 2, 3],
         mode="markers", marker=dict(opacity=0),
         showlegend=False, hoverinfo="skip",
     ), row=1, col=1)
 
+    # metas: productos → Pereira, vendedores → empresa, ventas → Pereira
     kpis = [
         dict(label="Ventas / mes",
              actual="$0",
-             meta_per=f"${per_23avg/1000:.1f}k",
-             meta_avg=f"${avg_mes/1000:.1f}k",
+             meta=f"${per_23avg/1000:.1f}k",
+             ref="≥ Pereira",
              y=1),
-        dict(label="Productos",
-             actual=str(buca_prod),
-             meta_per=str(per_prod),
-             meta_avg=str(avg_prod),
-             y=2),
         dict(label="Vendedores",
              actual=str(int(buca_row["activos"])),
-             meta_per="6",
-             meta_avg=str(avg_act),
+             meta=str(avg_act),
+             ref="≥ empresa",
+             y=2),
+        dict(label="Productos",
+             actual=str(buca_prod),
+             meta=str(per_prod),
+             ref="≥ Pereira",
              y=3),
     ]
 
-    # Encabezados de columna (solo una vez, arriba del todo)
+    # Encabezados de columna
     for x, txt, color in [
-        (0.08, "Hoy",     ROJO),
-        (0.50, "Pereira", VERDE),
-        (0.88, "Empresa", AMBAR),
+        (0.15, "Hoy",  ROJO),
+        (0.75, "Meta", VERDE),
     ]:
         fig.add_annotation(
             x=x, y=3.55,
@@ -691,37 +691,30 @@ def slide7_matrix():
         )
         # Valor actual
         fig.add_annotation(
-            x=0.08, y=k["y"],
+            x=0.15, y=k["y"],
             text=f"<b>{k['actual']}</b>",
             font=dict(size=18, color=ROJO), showarrow=False,
             xref="x", yref="y", align="center",
         )
-        # Flecha 1
+        # Flecha
         fig.add_annotation(
-            x=0.30, y=k["y"],
+            x=0.45, y=k["y"],
             text="→",
             font=dict(size=14, color=GRIS), showarrow=False,
             xref="x", yref="y", align="center",
         )
-        # Meta Pereira
+        # Meta
         fig.add_annotation(
-            x=0.50, y=k["y"],
-            text=f"<b>{k['meta_per']}</b>",
+            x=0.75, y=k["y"],
+            text=f"<b>{k['meta']}</b>",
             font=dict(size=18, color=VERDE), showarrow=False,
             xref="x", yref="y", align="center",
         )
-        # Flecha 2
+        # Referencia pequeña
         fig.add_annotation(
-            x=0.70, y=k["y"],
-            text="→",
-            font=dict(size=14, color=GRIS), showarrow=False,
-            xref="x", yref="y", align="center",
-        )
-        # Meta promedio empresa
-        fig.add_annotation(
-            x=0.88, y=k["y"],
-            text=f"<b>{k['meta_avg']}</b>",
-            font=dict(size=18, color=AMBAR), showarrow=False,
+            x=0.75, y=k["y"] - 0.22,
+            text=f"<i style='color:{GRIS}'>{k['ref']}</i>",
+            font=dict(size=8, color=GRIS), showarrow=False,
             xref="x", yref="y", align="center",
         )
 
@@ -730,12 +723,12 @@ def slide7_matrix():
 
     # ══ PANEL B — Gantt simplificado ══════════════════════════════════════
     fases = [
-        dict(nombre="FASE 1", inicio=0, fin=2, color=ROJO,
-             titulo="Estabilizar<br>el equipo", kpi="2 → 6 vendedores", y=3),
-        dict(nombre="FASE 2", inicio=2, fin=5, color=AMBAR,
-             titulo="Ampliar el portafolio",   kpi=f"72 → {per_prod} productos", y=2),
-        dict(nombre="FASE 3", inicio=5, fin=8, color=VERDE,
-             titulo="Reabierta",               kpi=f"Meta: ${per_23avg/1000:.1f}k USD/mes", y=1),
+        dict(nombre="FASE 1", inicio=0, fin=3, color=ROJO,
+             titulo="Ampliar<br>el portafolio", kpi=f"{buca_prod} → {per_prod} productos", y=3),
+        dict(nombre="FASE 2", inicio=3, fin=6, color=AMBAR,
+             titulo="Nivelar<br>el equipo",     kpi=f"{int(buca_row['activos'])} → {avg_act} vendedores", y=2),
+        dict(nombre="FASE 3", inicio=6, fin=9, color=VERDE,
+             titulo="Reabierta",                kpi=f"Meta: ${per_23avg/1000:.1f}k USD/mes", y=1),
     ]
 
     for f in fases:
@@ -767,10 +760,10 @@ def slide7_matrix():
         )
 
     fig.update_xaxes(
-        tickvals=[0, 2, 5, 8],
-        ticktext=["Hoy", "Mes 2", "Mes 5", "Mes 8"],
+        tickvals=[0, 3, 6, 9],
+        ticktext=["Hoy", "Mes 3", "Mes 6", "Mes 9"],
         tickfont=dict(color=GRIS, size=10),
-        showgrid=True, range=[-0.3, 8.5], row=1, col=2,
+        showgrid=True, range=[-0.3, 9.5], row=1, col=2,
     )
     fig.update_yaxes(
         tickvals=[1, 2, 3],
